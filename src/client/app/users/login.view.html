@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/src/client/styles/login.css" />
+<button type="button" style="margin-right:10px;" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeModal()">
+    <span aria-hidden="true">&times;</span>
+</button>
+<div class="loginmodal-container">
+    <h1>Inicia Sesión en Strongertogether</h1><br>
+
+    <form ng-controller="LoginController as vm" id="login_form" name="login_form">
+        <input required ng-model="vm.inputUser" type="text" id="inputUser" name="inputUser" placeholder="Introduce tu Email o Nombre de Usuario"  maxlength="100">
+        <span class="text-danger" ng-show="login_form.inputUser.$error.required && (login_form.inputUser.$dirty || login_form.inputUser.$touched)">El campo es obligatorio</span>
+        <span class="text-danger" ng-show="login_form.inputUser.$error.user">Email no valido</span>
+        <span class="text-danger" ng-show="AlertMessage" ng-model="login_form.user_error">{{login_form.user_error}}</span>
+
+        <input ng-model="vm.inputPass" ng-pattern="/^.{6,12}$/" type="password" id="inputPass" name="inputPass" placeholder="Contraseña" value="" required>
+          <span class="text-danger" ng-show="login_form.inputPass.$error.required && (login_form.inputPass.$dirty || login_form.inputPass.$touched)">El campo es obligatorio</span>
+          <span class="text-danger" ng-show="login_form.inputPass.$error.pattern">Password no válido</span><br />
+          <span class="text-danger" ng-show="AlertMessage" ng-model="login_form.pass_error">{{login_form.pass_error}}</span>
+
+        <input type="submit" id="submitLogin" name="submitLogin" class="login loginmodal-submit" value="Login" ng-click="vm.submitLogin()">
+      </form>
+
+      <div ng-controller="SidebarController as vm" ng-view class="login-help"><br>
+        <p>Aun no te has registrado? <a class="enlace" ng-click="vm.openSignUp(); closeModal()" href="#">Registrate aqui!</a></p>
+        <p >Has olvidado la contraseña? <a class="enlace" ng-click="vm.openRecoveryPass(); closeModal()" href="#" >Pincha Aquí!</a></p><br>
+      </div>
+
+    <h6>Conectate con Facebook o Twitter</h6>
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <a type="button" target="_self" class="btn btn-primary" href="/auth/facebook"><i class="icon-facebook2"></i> Facebook</a>
+        </div>
+        <div class="btn-group">
+
+            <a class="btn btn-info" target="_self" href="/auth/twitter"><i class="icon-twitter2"></i> Twitter</a></a>
+        </div>
+    </div>
+</div>
+
+

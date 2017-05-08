@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/src/client/styles/login.css" />
+<button type="button" style="margin-right:10px;" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeModal()">
+    <span aria-hidden="true">&times;</span>
+</button>
+<div class="loginmodal-container">
+    <h1>Restaurar Contraseña</h1><br>
+    <form ng-controller="recoveryController as vm" id="recovery_pass" name="recovery_pass">
+
+        <input ng-model="vm.inputPass" ng-pattern="/^.{6,12}$/" type="password" id="inputPass" name="inputPass" placeholder="Contraseña" value="" required>
+        <p><span class="text-danger" ng-show="recovery_pass.inputPass.$error.required && (recovery_pass.inputPass.$dirty || recovery_pass.inputPass.$touched)">El campo es obligatorio</span></p>
+        <p><span class="text-danger" ng-show="recovery_pass.inputPass.$error.pattern">Password no válido</span></p>
+
+
+        <input ng-model="vm.inputPass2"  ng-pattern="/^.{6,12}$/" type="password" id="inputPass2" name="inputPass2" placeholder="Repita la Contraseña" value="" required>
+        <p><span class="text-danger" ng-show="recovery_pass.inputPass2.$error.required && (recovery_pass.inputPass2.$dirty || recovery_pass.inputPass2.$touched)">El campo es obligatorio</span></p>
+        <p><span class="text-danger" data-ng-show="recovery_pass.inputPass.$valid && vm.inputPass !== vm.inputPass2"> Las contraseñas no coinciden</span></p>
+
+        <input type="submit" id="submit_changepass" name="submit_changepass" class="login loginmodal-submit" ng-disabled="recovery_pass.inputPass.$invalid || recovery_pass.inputPass2.$invalid || vm.inputPass != vm.inputPass2" value="Cambiar Contraseña" ng-click="vm.changePass();">
+
+    </form>
+</div>

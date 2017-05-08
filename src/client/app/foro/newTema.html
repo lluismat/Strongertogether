@@ -1,0 +1,40 @@
+<style>
+    .form-horizontal .form-group {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    /*.note-group-select-from-files {*/
+        /*display: none;*/
+    /*}*/
+    /*.note-group-image-url{*/
+        /*padding-top: 10px;*/
+    /*}*/
+</style>
+<div class="page-container" ng-controller="crearTemaController as vm">
+    <form class="form-horizontal" role="form" id="form_crearTema" name="form_crearTema" style="margin: 0 10px 10px 10px;"><br>
+        <!--<textarea ng-model="vm.contenido" rows=19 style="width: 100%;"></textarea>-->
+        <div style="width: 100%;"  class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-pencil"></i> Crear Tema</h6>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Titulo Tema</label>
+                        <input id="titulo" name="titulo" type="text" ng-pattern="/^[aA-zZñÑ1-9\s._-]{1,20}$/" ng-model="vm.titulo" class="form-control" required>
+                        <p><span class="text-danger" ng-show="form_crearTema.titulo.$error.required && (form_crearTema.titulo.$dirty || form_crearTema.titulo.$touched)">El campo es obligatorio</span></p>
+                        <p><span class="text-danger" ng-show="form_crearTema.titulo.$error.pattern">Titulo no valido</span></p>
+                    </div>
+                </div>
+                    <div class="block-inner">
+                        <div id="contenido" name="contenido" summernote config="vm.options" ng-model="vm.contenido" on-image-upload="vm.imageUpload(files)" editable="editable" editor="editor" required></div>
+                        <p><span class="text-danger" ng-show="form_crearTema.contenido.$error.required && (form_crearTema.contenido.$dirty || form_crearTema.contenido.$touched)">El campo es obligatorio</span></p>
+                    </div>
+                    <div class="form-actions text-right">
+                        <a href="/foros" type="submit" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-primary" ng-click="vm.crearTema()" ng-disabled="form_crearTema.titulo.$invalid || (form_crearTema.contenido.$invalid)">Crear Tema</button>
+                    </div>
+            </div>
+        </div>
+    </form>
+</div>

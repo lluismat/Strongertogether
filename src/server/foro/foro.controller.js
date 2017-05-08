@@ -1,0 +1,49 @@
+var foroModel = require('./foro.model');
+
+exports.crearTema = function(req, res) {
+
+    foroModel.crearTema(req.body, function(err, tema) {
+        if (err) {
+            return res.send(tema);
+        }else{
+            return res.send(tema);
+        }
+
+    });
+};
+
+exports.getTemas = function(req, res) {
+
+    foroModel.getTemas(req.body.categoria, function(err, temas) {
+        if (err) {
+            return res.send(tema);
+        }else{
+            return res.send(temas);
+        }
+
+    });
+};
+
+exports.getTema = function(req, res) {
+
+    foroModel.getTema(req.body.id, function(err, tema) {
+        if (err) {
+            return res.send(tema);
+        }else{
+            return res.send(tema);
+        }
+
+    });
+};
+
+exports.getCategorias = function(req, res) {
+
+    foroModel.getCategorias(function(err, categorias) {
+        if (err) {
+            return res.send(tema);
+        }else{
+            return res.send(categorias);
+        }
+
+    });
+};

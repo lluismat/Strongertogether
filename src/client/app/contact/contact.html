@@ -1,0 +1,99 @@
+<div class="container" style="padding: 20px 0 20px 0; font-family: Arial, Helvetica, sans-serif; !important;">
+    <div class="iframe">
+        <span class="help-inline" style="color: #50626D; font-size: 15px">Haz click en el Mapa si quieres utilizar las funciones de google maps.</span>
+        <iframe class="iframe_class" width="100%" height="390" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD9FGiHcq-P4ACcFAQQpY75UzzONTQrYkM&q=IES+L'Estacio,Ontinyent,Spain" ></iframe>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm" style="background-color:white;">
+                <form id="contact_form" name="contact_form" role="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input class="form-control" required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="Name *"  maxlength="100">
+                                <div class="alert alert-danger fade in block-inner" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">
+                                    <span data-dismiss="alert">El campo es obligatorio</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" required ng-model="vm.inputEmail" type="email" id="inputEmail" name="inputEmail" placeholder="Email *" maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i">
+                                <div class="alert alert-danger fade in block-inner" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">
+                                    <span>El campo es obligatorio</span>
+                                </div>
+                                <div class="alert alert-danger fade in block-inner" ng-show="contact_form.inputEmail.$error.email" >
+                                    <span>Email no valido</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Asunto</label>
+                                <select class="form-control" ng-model="vm.inputSubject" id="inputSubject" name="inputSubject">
+                                    <option value="" disabled selected>Elije una Opcion</option>
+                                    <option value="compra">Info relativa a tu compra</option>
+                                    <option value="evento">Celebra un evento con nosotros</option>
+                                    <option value="programacion">Contacta con nuestro dpto de programacion</option>
+                                    <option value="Trabaja">Trabaja con nosotros</option>
+                                    <option value="proyectos">Deseas proponernos proyectos</option>
+                                    <option value="sugerencias">Haznos sugerencias</option>
+                                    <option value="reclamaciones">Atendemos tus reclamaciones</option>
+                                    <option value="club">Club rural_shop</option>
+                                    <option value="sociales">Proyectos sociales</option>
+                                    <option value="festivos">Apertura de festivos</option>
+                                    <option value="novedades">Te avisamos de nuestras novedades</option>
+                                    <option value="diferente">Algo diferente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Comentario</label>
+                                <textarea rows="10" cols="25" class="form-control" required ng-model="vm.inputMessage" id="inputMessage" name="inputMessage" placeholder="Introduzca aqui su mensaje *"></textarea>
+                                <div class="alert alert-danger fade in block-inner" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">
+                                    <span>El campo es obligatorio</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid">
+                                <input type="submit" value="Enviar Correo" class="btn btn-primary pull-right" name="submit" id="submitBtn"  ng-click="vm.sendContact()">
+                            </div>
+                            <div class="form-group">
+                                <div id="resultMessage" ng-class="class" style="display: none;">{{message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .iframe_class{
+        width: 100%;
+        display: block;
+        pointer-events: none;
+        position: relative; /* IE needs a position other than static */
+    }
+    .iframe_class.clicked{
+        pointer-events: auto; !important;
+    }
+
+</style>
+<script>
+    $( document ).ready(function() {
+
+        $('.help-inline').hide();
+
+        $('.iframe')
+                .mouseenter(function() {
+                    console.log("hola");
+                    $('.help-inline').show();
+                })
+                .click(function(){
+                    $(this).find('iframe').addClass('clicked');
+                })
+                .mouseleave(function () {
+                    $(this).find('iframe').removeClass('clicked');
+                    $('.help-inline').hide();
+                });
+    });
+</script>

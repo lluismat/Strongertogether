@@ -1,0 +1,49 @@
+<link href="/src/client/styles/hospital.css" rel='stylesheet' type='text/css' />
+<div class="panel panel-primary">
+
+</div>
+<section id="main" class="wrapper">
+    <div class="container">
+        <header class="major">
+            <h2 class="hospital_title">Hospitals Google Maps</h2>
+            <div class="flexsearch">
+            		<div class="flexsearch--wrapper">
+            				<div class="flexsearch--input-wrapper">
+                      <input type="search" class="filtre" ng-model="filtro" placeholder="Search Hospital...">
+            				</div>
+            		</div>
+            </div>
+          <br>
+        </header>
+
+        <div class="image fit">
+            <div id='ubicacion'></div>
+            <div id="demo"></div>
+            <div id="mapholder">
+
+              <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+
+                <ui-gmap-markers models="testMarkers" coords="'self'" icon="'icon'" events="vm.map.markersEvents">
+
+                     <ui-gmap-window show="vm.map.windows.show" coords= "vm.map.windows.model">
+                       <div class="HospitalsBoxInfo">
+                         <h4> Hospital Information </h4>
+                         <div>Name: {{vm.infoWindow.name}}</div>
+                         <div>Direction: {{vm.infoWindow.city}}</div>
+                       </div>
+                    </ui-gmap-window>
+
+                </ui-gmap-markers>
+              </ui-gmap-google-map>
+
+            </div>
+            <div class="hospitals" class="fade">
+              <div class="of" ng-repeat="hospital in vm.filteredHospitals| filter:{name:filtro}" id="{{hospital.id}}">
+                  <div>
+                      <div ng-click="vm.infoMarker(hospital.id)" class="desc">{{hospital.name}}</div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>

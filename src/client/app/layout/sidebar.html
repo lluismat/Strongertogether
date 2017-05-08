@@ -1,0 +1,89 @@
+<div ng-controller="SidebarController as vm" class="navbar navbar-inverse" role="navigation" style="position: relative; z-index: 99;">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">Strongertogether</a>
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu-right">
+            <span class="sr-only">Toggle navigation</span>
+            <i class="icon-user"></i>
+        </button>
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu-left">
+            <span class="sr-only">Toggle navbar</span>
+            <i class="icon-grid3"></i>
+        </button>
+    </div>
+
+    <ul class="nav navbar-nav collapse" id="navbar-menu-left">
+        <!--<li ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes"><a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a></li>-->
+        <li><a href="/"><i class="icon-home2"></i> <span>Home</span></a></li>
+        <li><a href="/hospitales"><i class="icon-location"></i> <span>Hospitales</span></a></li>
+        <li><a href="/foros"><i class="icon-library"></i> <span>Foro</span></a></li>
+        <li><a href="/contacto"><i class="icon-phone2"></i> <span>Contacto</span></a></li>
+    </ul>
+
+    <!-- ACTIVIDAD RECIENTE -->
+    <ul class="nav navbar-nav navbar-icons navbar-right collapse" id="navbar-menu-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-bell"></i>
+                <span class="label label-default">1</span>
+            </a>
+            <div class="popup dropdown-menu dropdown-menu-right">
+                <div class="popup-header">
+                    <a href="#" class="pull-left"><i class="icon-spinner7"></i></a>
+                    <span>Actividad</span>
+                    <a href="#" class="pull-right"><i class="icon-paragraph-justify"></i></a>
+                </div>
+                <ul class="activity">
+                    <li>
+                        <i class="icon-thumbs-up3"></i>
+                        <div>
+                            <a href="#">Lluis</a> se ha votado a si mismo en el siguiente tema: <a href="#">proba</a>
+                            <span>14 minutes ago</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <!-- MENSAJES SIN LEER -->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-envelop"></i>
+                <span class="label label-default">1</span>
+            </a>
+            <div class="popup dropdown-menu dropdown-menu-right">
+                <div class="popup-header">
+                    <a href="#" class="pull-left"><i class="icon-spinner7"></i></a>
+                    <span>Mensajes</span>
+                    <a href="#" class="pull-right"><i class="icon-new-tab"></i></a>
+                </div>
+                <ul class="popup-messages">
+                    <li>
+                        <a href="#">
+                            <img src="" alt="" class="user-face">
+                            <strong>Lluis Mataix <i class="icon-attachment2"></i></strong>
+                            <span>Hola, esto es una prueba...</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="user dropdown" ng-show="!Session" href="" ng-click="vm.openModal()">
+            <a class="dropdown-toggle" data-toggle="dropdown"><span>Iniciar Sesión</span></a>
+        </li>
+
+        <li class="user dropdown" ng-show="Session">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <img src="src/server/uploads/avatars/{{ avatar }}" alt="">
+                <span>{{ username }}</span>
+                <i class="caret"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right icons-right">
+                <li><a href="/perfil"><i class="icon-user"></i> Perfil</a></li>
+                <li><a href="/amigos"><i class="icon-users"></i> Lista Amigos</a></li>
+                <li><a href="/mensajes"><i class="icon-envelop"></i> Mensajes</a></li>
+                <li><a href="" ng-click="vm.logout()"><i class="icon-exit"></i> Cerrar Sesión</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

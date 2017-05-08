@@ -1,0 +1,160 @@
+<div ng-controller="ProfileController as vm" class="page-container" style="width: 98.9%; !important;">
+  <div class="row">
+    <div class="col-lg-2">
+
+      <div class="block">
+
+        <div class="block">
+          <div class="thumbnail">
+            <div class="thumb">
+              <img alt="" src="src/server/uploads/avatars/{{ avatar }}">
+            </div>
+
+            <div class="caption text-center">
+              <h6>{{ username }} <small>{{ user.description }}</small></h6>
+              <div class="icons-group">
+                <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a>
+                <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a>
+                <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="nav nav-list">
+          <li class="nav-header">Actividad <i class="icon-accessibility"></i></li>
+          <li><a clas="active" href="#activity" data-toggle="tab">Actividad</a></li>
+          <li><a href="#">Amigos</a></li>
+          <li><a href="#">Mis Temas <span class="label label-success">21</span></a></li>
+          <li><a href="#">Mensajes <span class="label label-danger">14</span></a></li>
+        </ul>
+
+        <ul class="nav nav-list">
+          <li class="nav-header">Configuración y Privacidad <i class="icon-cogs"></i></li>
+          <li><a href="#infouser" data-toggle="tab">Información Personal</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#cuenta" data-toggle="tab">Cuenta</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <br>
+    <div class="col-lg-10">
+      <div class="tab-content">
+        <div class="tab-pane active fade in" id="activity">
+
+          </div>
+        <div class="tab-pane fade in" id="infouser">
+          <!-- Profile information -->
+          <form class="block" role="form" id="perfil_form" name="perfil_form" style="margin: 0 10px 10px 10px;">
+            <h6 class="heading-hr"><i class="icon-user"></i> Información Personal: </h6>
+
+            <div class="block-inner">
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Nombre</label>
+                    <input id="name" name="name" type="text" ng-pattern="/^[aA-zZñÑ]{1,20}$/" ng-model="user.name" class="form-control">
+                      <p><span class="text-danger" ng-show="perfil_form.name.$error.pattern">Nombre no valido</span></p>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Apellido</label>
+                    <input id="surname" name="surname" type="text" ng-pattern="/^[aA-zZñÑ]{1,20}$/" ng-model="user.surname" class="form-control">
+                      <p><span class="text-danger" ng-show="perfil_form.surname.$error.pattern">Apellido no valido</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Ciudad</label>
+                    <input  id="city" name="city" type="text" ng-pattern="/^[aA-zZñÑ]{1,20}$/" ng-model="user.city" class="form-control">
+                      <p><span class="text-danger" ng-show="perfil_form.city.$error.pattern">Ciudad no valida</span></p>
+                  </div>
+                  <div class="col-md-6">
+                    <label>País:</label>
+                      <country-select class="form-control" cs-priorities="ES" id="country" ng-model="user.country" name="country" ng-model = "contact.country_code">
+                          <option value="" disabled selected>Select your option</option>
+                      </country-select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>Descripción</label>
+                    <textarea id="description" name="description" rows="8" cols="20" ng-model="user.description" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <label>Avatar</label><br>
+                  <!--<input type="file" ngf-select ng-model="user.avatar" id="avatar" name="avatar" ngf-pattern="'image/*'" ngf-max-size="2MB"/>-->
+                  <a ngf-select ng-model="vm.avatar" id="avatar" name="avatar" ngf-pattern="'image/*'" ngf-max-size="2MB">
+                      <img style="width:100px;" ng-show="!!vm.avatar" ngf-thumbnail="vm.avatar || 'src/server/uploads/avatars/{{ avatar }}'"/></a>
+                  <i ng-show="perfil_form.avatar.$error.maxSize">La imagen es demasiado grande
+                    {{vm.avatar.size / 1000000|number:1}}Peso Maximo: 2M</i>
+                  <p>{{vm.progress}}</p>
+              </div>
+
+            </div>
+            <div class="text-right" style="padding: 10px 10px 10px 0;">
+              <a href="/" class="btn btn-default">Cancelar</a>
+              <input type="submit" id="save" name="save" value="Guardar" class="btn btn-success" ng-click="vm.saveProfile()">
+            </div>
+
+          </form>
+        </div>
+        <div class="tab-pane fade in" id="cuenta">
+          <!-- Profile information -->
+          <form class="block" role="form" id="personalInfo_form" name="personalInfo_form" style="margin: 0 10px 10px 10px;">
+            <h6 class="heading-hr"><i class="icon-user"></i> Información de la Cuenta: </h6>
+            <div class="block-inner">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Email</label>
+                    <input id="email" name="email" type="email" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i" ng-model="vm.email" class="form-control">
+                    <p><span class="text-danger" ng-show="personalInfo_form.email.$error.pattern">Email no valido</span></p>
+                  </div>
+                </div>
+              </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Nueva Contraseña</label>
+                            <input id="newpass" name="newpass" type="password" ng-model="vm.newpass" ng-pattern="/^.{6,50}$/" class="form-control">
+                            <p><span class="text-danger" ng-show="personalInfo_form.newpass.$error.pattern">Contraseña no válida</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Repita la nueva Contraseña</label>
+                            <input id="newpass2" name="newpass2" type="password" ng-model="vm.newpass2" ng-pattern="/^.{6,50}$/"  class="form-control">
+                            <p><span class="text-danger" data-ng-show="personalInfo_form.newpass.$valid && vm.newpass !== vm.newpass2 "> Las contraseñas no coinciden</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Contraseña Actual</label>
+                            <input id="actualPass" name="actualPass" type="password" ng-pattern="/^.{6,12}$/" ng-model="vm.actualPass" class="form-control" required>
+                            <p><span class="text-danger" ng-show="personalInfo_form.actualPass.$error.required && (personalInfo_form.actualPass.$dirty || personalInfo_form.actualPass.$touched)">El campo es obligatorio</span></p>
+                            <p><span class="text-danger" ng-show="personalInfo_form.actualPass.$error.pattern">Contraseña no válida</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right" style="padding: 10px 10px 10px 0;">
+              <a href="/perfil" class="btn btn-default">Cancelar</a>
+              <input type="submit" id="savePersonalInfo" name="savePersonalInfo" value="Guardar" class="btn btn-success" ng-disabled="personalInfo_form.actualPass.$invalid && vm.newpass != vm.newpass2" ng-click="vm.saveAccount()">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
