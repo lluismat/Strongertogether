@@ -67,7 +67,7 @@ function changePass(req, res) {
 
 function emailVerification(user){
 
-    url = "http://localhost:3000/verify?id="+user.token;
+    var url = "http://localhost:3000/verify?id="+user.token;
     var email = {
         from: 'Strongertogetherdaw@gmail.com',
         to: user.email,

@@ -2,12 +2,12 @@
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules/
 bower_components/
-build/
+# build/
 
 # other
 .tmp
 
 .env
 config.db.js
-src/server/uploads/avatars/*
-src/server/uploads/imagesgit /*
+src/server/uploads/avatars/
+src/server/uploads/imagesgit/

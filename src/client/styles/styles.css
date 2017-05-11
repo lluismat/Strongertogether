@@ -6,7 +6,7 @@
 * ========================================================
 *
 * File: styles.css;
-* Description: General template styles.
+* Description: General template styles
 * Version: 1.0
 *
 * ======================================================== */
@@ -17,6 +17,7 @@
 ================================================== */
 
 /* Demo list */
+
 .demo-list { 
   text-align: center; 
   margin: 0; 

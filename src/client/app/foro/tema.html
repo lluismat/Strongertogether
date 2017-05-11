@@ -1,24 +1,15 @@
-<style>
-    .form-horizontal {
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-     .chat-member, .avatar_autor {
-        height: 64px !important;
-    }
-</style>
 <div class="page-container" ng-controller="temaController as vm">
     <div class="form-horizontal"><br>
-        <!--<textarea ng-model="vm.contenido" rows=19 style="width: 100%;"></textarea>-->
         <div style="width: 100%;"  class="panel panel-default">
             <div class="panel-body">
                 <div class="row invoice-header">
-                    <div class="col-sm-6">
-                        <h2>Tema: {{ vm.tema.titulo }}</h2>
+                    <div class="col-sm-12">
+                        <h2 class="titulo_tema">{{ vm.tema.titulo }}</h2>
                     </div>
                 </div>
-                    <div class="clearfix">
-                        <div  class="chat-member">
+                <div class="contenido_tema">
+                    <div class="clearfix info_user_tema">
+                        <div class="chat-member">
                             <a href="#"><img class="avatar_autor" alt="" src="src/server/uploads/avatars/{{ vm.user.avatar }}"></a>
                             <h6><a href="#">{{ vm.tema.autor }}&nbsp;<span class="status status-success"></span></a></h6>
                         </div>
@@ -27,12 +18,34 @@
                             <a href="#" class="btn btn-link btn-icon btn-xs"><i class="icon-bullhorn"></i></a>
                             <a href="#" class="btn btn-link btn-icon btn-xs"><i class="icon-user-plus2"></i></a>
                         </div>
+                    </div><hr>
+                    <div class="form-group comentario_box">
+                        <div class="col-md-9 contenido_comentario" ng-bind-html="vm.contentTema"></div>
                     </div>
+                </div><br><br>
+                <h2>COMENTARIOS</h2>
                 <hr>
-                <div class="form-group">
-                    <div class="col-md-6" ng-bind-html="vm.tema.contenido"></div>
-                </div>
+                <div class="comentario" ng-repeat="comentario in vm.coment">
+                    <div class="clearfix info_user_tema">
+                        <div class="chat-member">
+                            <a href="#"><img class="avatar_comentario" alt="" src="src/server/uploads/avatars/{{ comentario.avatar }}"></a>
+                            <h6><a href="#">{{ comentario.autor }}&nbsp;<span class="status status-success"></span></a></h6>
+                        </div>
+                        <div class="chat-actions">
+                            <a class="btn btn-link btn-icon btn-xs" data-toggle="collapse" href="#"><i class="icon-bubble3"></i></a>
+                            <a href="#" class="btn btn-link btn-icon btn-xs"><i class="icon-bullhorn"></i></a>
+                            <a href="#" class="btn btn-link btn-icon btn-xs"><i class="icon-user-plus2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group comentario_box">
+                        <div class="col-md-9 contenido_comentario" ng-bind-html="comentario.contenido"></div>
+                    </div>
+                </div><br>
             </div>
+        </div>
+        <div class="form-actions text-right" >
+            <a href="/foros" type="submit" class="btn btn-danger">Volver</a>
+            <a href="/nuevo_comentario?id={{ vm.tema.id }}" ng-disabled="!vm.username" class="btn btn-primary">Comentar</a>
         </div>
     </div>
 </div>

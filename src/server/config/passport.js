@@ -20,31 +20,6 @@ module.exports = function() {
     done(null, username);
   });
 
-  // passport.serializeUser(function(user, done) {
-  //   done(null, user.email);});
-  //
-  // passport.deserializeUser(function(id, done) {
-  //   console.log('DESERIALIZE USER ' + id);
-  //   mysql.connection.query('select * from users where email = ' + id, function(err, rows) {
-  //
-  //     if (err) { done(err);}
-  //
-  //     if (!rows.length) { done(null, null); }
-  //     // all is well, return user
-  //     else {
-  //
-  //       var newUserMysql = {
-  //         email : rows[0].email,
-  //         name : rows[0].name,
-  //         avatar : rows[0].avatar
-  //       };
-  //
-  //       done(err, newUserMysql);
-  //     }
-  //
-  //   });
-  // });
-
   //process.env.SECRET_KEY
   passport.use(new FacebookStrategy({
     clientID: process.env.ID_FACEBOOK,

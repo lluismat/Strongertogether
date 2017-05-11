@@ -39,11 +39,11 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `nombre`, `orden`, `descripcion`, `temas`) VALUES
-(1, 'Test', 1, 'categoria de prueba', 35),
+(1, 'Test', 1, 'categoria de prueba', 0),
 (2, 'Avances en Medicina', 5, 'Categoria sobre Avances en el campo de la medicina', 0),
 (3, 'Alimentación', 2, 'Categoria sobre comida saludable', 0),
 (4, 'Enfermedades', 3, 'Categoria sobre enfermedades ', 0),
-(5, 'Off Topic', 4, 'Categoria para hablar sobre lo que quieras', 2);
+(5, 'Off Topic', 4, 'Categoria para hablar sobre lo que quieras', 0);
 
 -- --------------------------------------------------------
 
@@ -114,50 +114,6 @@ CREATE TABLE `tema` (
   `categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `tema`
---
-
-INSERT INTO `tema` (`id`, `titulo`, `contenido`, `autor`, `votos`, `comentarios`, `categoria`) VALUES
-(11, 'test', '\'<p>test crear tema&nbsp;<img src=\"./src/server/uploads/images/file-1494228484919.jpg\" style=\"width: 1846px;\"></p>\'', 'lluismat', 0, 0, 1),
-(12, 'test2', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(13, 'test3', '\'<p>test crear tema&nbsp;<img src=\"./src/server/uploads/images/file-1494228484919.jpg\" style=\"width: 1846px;\"></p>\'', 'lluismat', 0, 0, 1),
-(14, 'test4', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(15, 'test5', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(16, 'test6', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(17, 'test7', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(18, 'test8', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(19, 'test9', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(20, 'test10', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(21, 'test11', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(22, 'test12', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(23, 'test13', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(24, 'test14', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(25, 'test15', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(26, 'test16', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(27, 'test17', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(28, 'test18', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(29, 'test19', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(30, 'test20', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(31, 'test21', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(32, 'test22', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(33, 'test23', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(34, 'test24', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(35, 'test25', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(36, 'test26', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(37, 'test27', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(38, 'test28', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(39, 'test29', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(40, 'test30', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(41, 'test31', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(42, 'test32', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(43, 'test33', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(44, 'test34', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(45, 'test35', '\'<p>test crear tema 2</p>\'', 'lluismat', 0, 0, 1),
-(56, 'Ola Off Topic', '\'<p>ola</p>\'', 'lluismat', 0, 0, 5),
-(63, 'Ola Off Topic 2', '\'<p>olaasdadasd</p>\'', 'lluismat', NULL, 0, 5);
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `users`

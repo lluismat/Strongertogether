@@ -47,3 +47,15 @@ exports.getCategorias = function(req, res) {
 
     });
 };
+
+exports.crearComentario = function(req, res) {
+
+    foroModel.crearComentario(req.body, function(err, comentario) {
+        if (err) {
+            return res.send(comentario);
+        }else{
+            return res.send(comentario);
+        }
+
+    });
+};

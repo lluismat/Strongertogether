@@ -42,6 +42,16 @@
                   controllerAs: 'vm',
                   title: 'Tema'
               }
+          },
+          {
+              state: 'comentario',
+              config: {
+                  url: '/nuevo_comentario?id',
+                  templateUrl: 'app/foro/comentario.html',
+                  controller: 'temaController',
+                  controllerAs: 'vm',
+                  title: 'Nuevo Comentario'
+              }
           }
       ];
   }

@@ -25,6 +25,7 @@
         getTemas:getTemas,
         getCategorias:getCategorias,
         getTema:getTema,
+        crearComentario:crearComentario,
         getMessageCount: getMessageCount
     };
 
@@ -90,6 +91,20 @@
 
       function crearTema(data) {
           return $http.post('/api/nuevo_tema', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function crearComentario(data) {
+          return $http.post('/api/nuevo_comentario', data)
               .then(success)
               .catch(fail);
 

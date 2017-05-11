@@ -5,9 +5,9 @@
         .module('app.foro')
         .controller('crearTemaController', crearTemaController);
 
-    crearTemaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams'];
+    crearTemaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$timeout'];
     /* @ngInject */
-    function crearTemaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams) {
+    function crearTemaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $timeout) {
         var vm = this;
         vm.titulo = "";
         vm.username ="";
@@ -44,8 +44,11 @@
 
         function tema() {
             if(vm.username == ""){
-                logger.warning('Para crear un usuario debes iniciar session en Strongertogether!');
-                $state.go('foro');
+                logger.warning('Para crear un tema debes iniciar session en Strongertogether!');
+                $timeout(function() {
+                    $state.go('foro');
+                }, 1000);
+
             }
         }
 

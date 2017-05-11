@@ -20,10 +20,15 @@
       vm.numTemas = 0;
       vm.temasPage =[];
       vm.currentCat = "";
+      vm.username = "";
       vm.countPages=countPages;
       vm.pagination = pagination;
       vm.showTemas = showTemas;
       vm.getTemas = getTemas;
+
+      if($cookieStore.get('session')){
+          vm.username = $cookieStore.get('session').user;
+      }
 
       activate();
 

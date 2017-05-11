@@ -10,14 +10,14 @@ exports.sendmail = function(req,res) {
     req.body.to = req.body.from;
     var body = '<body>' +
     '<div id="contact-email">' +
-    '<div> <h1>Contacto con strongertogether</h1> <h4>Sugerencia: ' + req.body.subject +
+    '<div><h1>Contacto con strongertogether</h1> <h4>Sugerencia: ' + req.body.subject +
     '</h4></div>' +
     '<section>' +
     'Nombre:<p>' + req.body.name + '</p>' +
     'Email: <p>' + req.body.from + '</p>' +
     'Mensaje:<p>' + req.body.text + '</p></section>' +
     '</div>' +
-    ' </body>';
+    '</body>';
   break;
 
   case 'admin':

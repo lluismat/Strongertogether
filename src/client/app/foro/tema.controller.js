@@ -5,18 +5,20 @@
         .module('app.foro')
         .controller('temaController', temaController);
 
-    temaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams'];
+    temaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$sce'];
     /* @ngInject */
-    function temaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams) {
+    function temaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $sce) {
         var vm = this;
         vm.titulo = "";
         vm.username ="";
         vm.contenido = "";
         vm.tema = [];
         vm.user = [];
+        vm.coment = "";
+        //vm.message = "";
+        vm.contentTema = "";
         vm.comentario = comentario;
         vm.imageUpload = imageUpload;
-        vm.getTema = getTema;
 
         if($cookieStore.get('session')){
             vm.username = $cookieStore.get('session').user;
@@ -81,7 +83,7 @@
             });
         }
 
-        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y CREA EL TEMA
+        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y CREA EL COMENTARIO
         function comentario(){
             if(vm.username !=""){
                 var data = {
@@ -91,20 +93,20 @@
                 };
                 console.log(data);
 
-                return dataservice.crearTema(data).then(function(response) {
+                return dataservice.crearComentario(data).then(function(response) {
                     if(response.data != "error"){
-                        logger.success('Tema Creado con exito');
-                        $state.go('foro');
+                        vm.coment = response.data.contenido;
+                        logger.success('Comentario creado con exito');
+                        $state.go('tema',{id:$stateParams.id});
                     }else{
-                        logger.error('Ha habido un erro al crear el tema');
+                        logger.error('Ha habido un error al hacer el comentario');
+                        $state.go('tema',{id:$stateParams.id});
                     }
 
                 });
             }else{
-                logger.error('Para crear un tema debes de estar registrado');
+                logger.error('Para Comentar debes de estar registrado');
             }
-
-
         }
 
         //RECOGE LOS TEMAS DE CADA CATEGORIA Y LOS PINTA
@@ -116,7 +118,12 @@
                 if(response.data != "error"){
                     vm.tema = response.data["tema"];
                     vm.user = response.data["user"];
-                    console.log(vm.tema)
+                    vm.coment = response.data["comentarios"];
+                    vm.contentTema = $sce.trustAsHtml(vm.tema.contenido);
+
+                    for(var i = 0; i < vm.coment.length;i++){
+                        vm.coment[i].contenido = $sce.trustAsHtml(vm.coment[i].contenido);
+                    }
                 }
             });
         }

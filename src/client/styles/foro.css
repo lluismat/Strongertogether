@@ -1,0 +1,63 @@
+.form-horizontal {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.avatar_autor {
+    width: 84px;
+    height: 84px !important;
+    border: solid 2px #5D5D5D;
+    border-radius: 200px 200px 200px 200px !important;
+    -moz-border-radius: 200px 200px 200px 200px !important;
+    -webkit-border-radius: 200px 200px 200px 200px !important;
+}
+
+.comentario{
+    margin-bottom: 20px;
+    border: 2px solid #f0f0f0;
+    border-radius: 24px 24px 24px 24px;
+    -moz-border-radius: 24px 24px 24px 24px;
+    -webkit-border-radius: 24px 24px 24px 24px;
+}
+
+.avatar_comentario {
+    border: solid 2px #5D5D5D;
+    border-radius: 200px 200px 200px 200px !important;
+    -moz-border-radius: 200px 200px 200px 200px !important;
+    -webkit-border-radius: 200px 200px 200px 200px !important;
+    width: 84px;
+    height: 84px !important;
+}
+
+.info_user_tema{
+    padding: 0 0 0 0 !important;
+    border-radius: 60px 24px 24px 24px;
+    -moz-border-radius: 60px 24px 24px 24px;
+    -webkit-border-radius: 60px 24px 24px 24px;
+    border: 1px solid #e6e6e6;
+    background: #f7faff;
+}
+.comentario_box{
+
+    padding: 20px 20px 20px 20px;
+
+}
+
+.contenido_comentario{
+    margin: 10px 0px 6px 0px;
+}
+
+.contenido_tema{
+    margin-bottom: 40px;
+    padding: 0 0 20px 0;
+    border: 2px solid #f0f0f0;
+    border-radius: 24px 24px 24px 24px;
+    -moz-border-radius: 24px 24px 24px 24px;
+    -webkit-border-radius: 24px 24px 24px 24px;
+}
+
+.titulo_tema{
+    font-family: "Days One";
+    text-align: center;
+    color: #1a1a1a;
+    font-size: 30px;
+}

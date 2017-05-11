@@ -1,0 +1,25 @@
+<style>
+    .form-horizontal .form-group {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+</style>
+<div class="page-container" ng-controller="temaController as vm">
+    <form class="form-horizontal" role="form" id="form_comentario" name="form_comentario" style="margin: 0 10px 10px 10px;"><br>
+        <div style="width: 100%;"  class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-pencil"></i> Comentar</h6>
+            </div>
+            <div class="panel-body">
+                    <div class="block-inner">
+                        <div id="contenido" name="contenido" summernote config="vm.options" ng-model="vm.contenido" on-image-upload="vm.imageUpload(files)" editable="editable" editor="editor" required></div>
+                        <p><span class="text-danger" ng-show="form_comentario.contenido.$error.required && (form_comentario.contenido.$dirty || form_comentario.contenido.$touched)">El campo es obligatorio</span></p>
+                    </div>
+                    <div class="form-actions text-right">
+                        <a href="/tema?id={{ vm.tema.id }}" type="submit" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-primary" ng-click="vm.comentario()" ng-disabled="form_comentario.contenido.$invalid">Comentar</button>
+                    </div>
+            </div>
+        </div>
+    </form>
+</div>

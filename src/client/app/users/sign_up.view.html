@@ -6,21 +6,20 @@
     <h1>Registrate Gratis Ya</h1><br>
     <form ng-controller="LoginController as vm" id="signup_form" name="signup_form">
 
-      <input ng-model="vm.inputUsername" ng-pattern="/^[aA-zZñÑ0-9]{6,50}$/" type="text" id="inputUsername" name="inputUsername" placeholder="Nombre de Usuario" value="" required>
+      <input class="logintext" ng-model="vm.inputUsername" ng-pattern="/^[aA-zZñÑ0-9]{6,50}$/" type="text" id="inputUsername" name="inputUsername" placeholder="Nombre de Usuario" value="" required>
           <p><span class="text-danger" ng-show="signup_form.inputUsername.$error.required && (signup_form.inputUsername.$dirty || signup_form.inputUsername.$touched)">El campo es obligatorio</span></p>
           <p><span class="text-danger" ng-show="signup_form.inputUsername.$error.pattern">Usuario no valido</span></p>
 
-      <input required ng-model="vm.inputEmail" type="email" id="inputEmail" name="inputEmail" placeholder="Email"  maxlength="100"
-        ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i">
+      <input required ng-model="vm.inputEmail" type="email" id="inputEmail" name="inputEmail" placeholder="Email"  maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i">
         <p><span class="text-danger" ng-show="signup_form.inputEmail.$error.required && (signup_form.inputEmail.$dirty || signup_form.inputEmail.$touched)">El campo es obligatorio</span></p>
         <p><span class="text-danger" ng-show="signup_form.inputEmail.$error.email">Email no valido</span></p>
 
-      <input ng-model="vm.inputPass" ng-pattern="/^.{6,50}$/" type="password" id="inputPass" name="inputPass" placeholder="Contraseña" value="" required>
+      <input class="logintext" ng-model="vm.inputPass" ng-pattern="/^.{6,50}$/" type="password" id="inputPass" name="inputPass" placeholder="Contraseña" value="" required>
           <p><span class="text-danger" ng-show="signup_form.inputPass.$error.required && (signup_form.inputPass.$dirty || signup_form.inputPass.$touched)">El campo es obligatorio</span></p>
           <p><span class="text-danger" ng-show="signup_form.inputPass.$error.pattern">Password no válido</span></p>
 
 
-        <input ng-model="vm.inputPass2"  ng-pattern="/^.{6,12}$/" type="password" id="inputPass2" name="inputPass2" placeholder="Repita la Contraseña" value="" required>
+        <input class="logintext" ng-model="vm.inputPass2"  ng-pattern="/^.{6,12}$/" type="password" id="inputPass2" name="inputPass2" placeholder="Repita la Contraseña" value="" required>
             <p><span class="text-danger" ng-show="signup_form.inputPass2.$error.required && (signup_form.inputPass2.$dirty || signup_form.inputPass2.$touched)">El campo es obligatorio</span></p>
             <p><span class="text-danger" data-ng-show="signup_form.inputPass.$valid && vm.inputPass !== vm.inputPass2"> Las contraseñas no coinciden</span></p>
 

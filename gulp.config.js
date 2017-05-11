@@ -4,6 +4,7 @@ module.exports = function() {
   var clientApp = client + 'app/';
   var report = './report/';
   var root = './';
+  var style = './src/client/styles/';
   var specRunnerFile = 'specs.html';
   var temp = './.tmp/';
   var wiredep = require('wiredep');
@@ -26,7 +27,15 @@ module.exports = function() {
     ],
     build: './build/',
     client: client,
-    css: temp + 'styles.css',
+    css: [style + 'icons.css',
+      style + 'hospital.css',
+      style + 'styles.css',
+      style + 'login.css',
+      style + 'foro.css',
+      style + 'londinium-theme.css',
+      style + 'summernote.css',
+      style + 'summernote-bs3.css'
+    ],
     fonts: bower.directory + 'font-awesome/fonts/**/*.*',
     html: client + '**/*.html',
     htmltemplates: clientApp + '**/*.html',
@@ -43,7 +52,7 @@ module.exports = function() {
       '**/*.module.js',
       '**/*.js'
     ],
-    less: client + 'styles/styles.less',
+    less: style + 'styles.less',
     report: report,
     root: root,
     server: server,
