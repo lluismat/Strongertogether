@@ -8,10 +8,11 @@
 config.db.js
 
 # exclude everything
-src/server/uploads/avatars/*
-src/server/uploads/images/*
+/src/server/uploads/avatars/*
+/src/server/uploads/images/*
 
 # exception to the rule
-!src/server/uploads/avatars/.default_user.png
-!src/server/uploads/images/.emptyfile
 /build/
+!/src/server/uploads/images/.empty
+!/src/server/uploads/avatars/default_user.png
+
