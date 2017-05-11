@@ -1,8 +1,5 @@
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
-node_modules/
-bower_components/
-build/
 
 # other
 .tmp
@@ -17,3 +14,4 @@ src/server/uploads/images/*
 # exception to the rule
 !src/server/uploads/avatars/.default_user.png
 !src/server/uploads/images/.emptyfile
+/build/
