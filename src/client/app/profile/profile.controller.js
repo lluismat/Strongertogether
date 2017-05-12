@@ -16,6 +16,16 @@
       vm.newpass = "";
       vm.actualPass = "";
       vm.avatar = "";
+      vm.temas = [];
+      vm.currentPage = 1;
+      vm.pageSize = 15;
+      vm.maxPages = [];
+      vm.pages = 1;
+      vm.numTemas = 0;
+      vm.temasPage =[];
+      vm.currentCat = "";
+      vm.countPages=countPages;
+      vm.pagination = pagination;
       vm.username = $cookieStore.get('session').user;
 
       activate();
@@ -33,7 +43,8 @@
               };
 
               return dataservice.profile(data).then(function(response) {
-                  $rootScope.user = response.data;
+                  $rootScope.user = response.data.user;
+                  vm.temas = response.data.temas;
                   $rootScope.user.avatar = "";
                   if($rootScope.user.name == "null"){
                       $rootScope.user.name = "";
@@ -120,6 +131,28 @@
                   $state.reload();
               }
           });
+      }
+
+      //PAGINATION TABLE
+
+      function countPages() {
+          vm.pages = Math.ceil(vm.temas.length/vm.pageSize);
+          for (var i=1; i<=vm.pages; i++) {
+              vm.maxPages.push(i);
+          }
+      }
+
+      function pagination(page){
+          if (page == "first"){
+              vm.currentPage= 1;
+          }else if(page == "prev"){
+              vm.currentPage=vm.currentPage-1;
+          }else if(page == "next"){
+              vm.currentPage=vm.currentPage+1;
+          }else if(page == "last"){
+              vm.currentPage=vm.pages;
+          }
+          console.log(vm.currentPage);
       }
   }
 })();

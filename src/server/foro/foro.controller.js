@@ -59,3 +59,14 @@ exports.crearComentario = function(req, res) {
 
     });
 };
+
+exports.addFriend = function(req, res) {
+    foroModel.addFriend(req.body, function(err, user) {
+        if (err) {
+            return res.send(user);
+        }else{
+            return res.send(user);
+        }
+
+    });
+};

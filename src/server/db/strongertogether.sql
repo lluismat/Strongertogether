@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2017 a las 17:11:03
+-- Tiempo de generación: 12-05-2017 a las 14:20:04
 -- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Versión de PHP: 7.0.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -43,7 +45,7 @@ INSERT INTO `categoria` (`id`, `nombre`, `orden`, `descripcion`, `temas`) VALUES
 (2, 'Avances en Medicina', 5, 'Categoria sobre Avances en el campo de la medicina', 0),
 (3, 'Alimentación', 2, 'Categoria sobre comida saludable', 0),
 (4, 'Enfermedades', 3, 'Categoria sobre enfermedades ', 0),
-(5, 'Off Topic', 4, 'Categoria para hablar sobre lo que quieras', 0);
+(5, 'Off Topic', 4, 'Categoria para hablar sobre lo que quieras', 1);
 
 -- --------------------------------------------------------
 
@@ -57,6 +59,16 @@ CREATE TABLE `comentarios` (
   `contenido` longtext COLLATE utf8_spanish_ci NOT NULL,
   `tema` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`id`, `autor`, `contenido`, `tema`) VALUES
+(1, 'lluismat', 'PHA+c2kgbyBrPzwvcD4=', 1),
+(2, 'lluismat', 'PHA+bG9sPC9wPg==', 1),
+(3, 'admin', 'PHA+YmFuIHBhcmEgdG9kb3M8L3A+', 1),
+(4, 'bot', 'PHA+b2xhJm5ic3A7PC9wPg==', 1);
 
 -- --------------------------------------------------------
 
@@ -114,6 +126,14 @@ CREATE TABLE `tema` (
   `categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tema`
+--
+
+INSERT INTO `tema` (`id`, `titulo`, `contenido`, `autor`, `votos`, `comentarios`, `categoria`) VALUES
+(1, 'Proba', 'PHA+RXN0byBlcyB1biB0ZW1hIGRlIHBydWViYTwvcD48cD48aW1nIHN0eWxlPSJ3aWR0aDogMTA3NXB4OyIgc3JjPSIuL3NyYy9zZXJ2ZXIvdXBsb2Fkcy9pbWFnZXMvZmlsZS0xNDk0NDk0NDU3NDI4LmpwZWciPjxicj48L3A+', 'lluismat', NULL, 4, 5);
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `users`
@@ -133,6 +153,7 @@ CREATE TABLE `users` (
   `city` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `avatar` varchar(200) DEFAULT NULL,
+  `friends` longtext NOT NULL,
   `activo` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -140,8 +161,10 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `password`, `token`, `tipo`, `birthday`, `country`, `city`, `description`, `avatar`, `activo`) VALUES
-(42, 'lluismat', 'Lluis', 'Mataix', 'mataix.lluis@gmail.com', '$2a$10$pzGopBN34WinnV01LPKaYeExVBAkLo.EjysgqRtCVhjqImwMMXmau', 'Autentificado', 'usuario', NULL, 'ES', 'Bocairent', 'Ola k ase', 'lluismat.jpg', 1);
+INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `password`, `token`, `tipo`, `birthday`, `country`, `city`, `description`, `avatar`, `friends`, `activo`) VALUES
+(42, 'lluismat', 'Lluis', 'Mataix', 'mataix.lluis@gmail.com', '$2a$10$pzGopBN34WinnV01LPKaYeExVBAkLo.EjysgqRtCVhjqImwMMXmau', 'Autentificado', 'usuario', NULL, 'ES', 'Bocairent', 'Ola k ase', 'lluismat.jpg', 'bot,admin', 1),
+(43, 'admin', 'admin', 'admin', 'admin@admin.com', '$2a$10$NwDnCuMeNPYBshMlFb1zju3akhBW4uUUE3jeifDf5am/ypFXJljRm', 'Autentificado', 'admin', NULL, 'ES', 'null', 'Admin Strongertogether', 'admin.gif', '', 1),
+(45, 'bot', 'bot', 'bot bot', 'bot@gmail.com', '$2a$10$c7WfPstX1rCCL3b4yQpuQOK7o8P0Bte0tZxWRkC/GYMQ3FQvpg9lS', 'Activado', 'user', NULL, NULL, NULL, '', 'default_user.png', '', 1);
 
 --
 -- Índices para tablas volcadas
@@ -195,17 +218,17 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tema`
 --
 ALTER TABLE `tema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- Restricciones para tablas volcadas
 --
@@ -221,6 +244,7 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `tema_ibfk_1` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

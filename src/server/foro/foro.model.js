@@ -96,4 +96,39 @@ foroModel.getCategorias = function(callback){
     }
 };
 
+foroModel.addFriend = function(user,callback){
+    var add_friend=true;
+    var friends = "";
+    if (mysql.connection) {
+        var sql1 = 'SELECT * FROM users WHERE username = "'+user.username+'"';
+        mysql.connection.query(sql1, function(error, row) {
+            if(error){
+                callback(null,"error");
+            }else{
+                var friendsUser = row[0].friends.split(",");
+
+                for(var i = 0; i < friendsUser.length;i++){
+                    if(friendsUser[i] == user.friends.toString()){
+                        add_friend = false;
+                    }
+                }
+                if(add_friend == true){
+                    friends = row[0].friends.toString();
+                    friends = user.friends.toString()+","+friends;
+                    var sql = 'UPDATE users SET friends ="' + friends + '" WHERE username = "'+user.username+'"';
+                    mysql.connection.query(sql, function(error, row2) {
+                        if(error){
+                            callback(null,"error");
+                        }else{
+                            callback(null, row2);
+                        }
+                    });
+                }else{
+                    callback(null, "errorexist");
+                }
+            }
+        });
+    }
+};
+
 module.exports = foroModel;

@@ -10,7 +10,18 @@ profileModel.getProfile = function(user,callback){
             if(error){
                 throw error;
             }else{
-                callback(null, row[0]);
+                var sql = 'SELECT t.*,c.nombre FROM tema t,categoria c WHERE t.autor = "'+user+'" AND t.categoria = c.id ';
+                mysql.connection.query(sql, function(error, row2) {
+                    if(error){
+                        throw error;
+                    }else{
+                        for(var i = 0; i < row2.length;i++){
+                            row2[i].contenido = new Buffer(row2[i].contenido, 'base64').toString("utf8");
+                        }
+                        var row3 = {"user": row[0],"temas":row2};
+                        callback(null, row3);
+                    }
+                });
             }
         });
     }

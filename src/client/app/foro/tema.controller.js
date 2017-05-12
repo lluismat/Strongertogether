@@ -5,9 +5,9 @@
         .module('app.foro')
         .controller('temaController', temaController);
 
-    temaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$sce'];
+    temaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$sce', '$uibModal'];
     /* @ngInject */
-    function temaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $sce) {
+    function temaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $sce, $uibModal) {
         var vm = this;
         vm.titulo = "";
         vm.username ="";
@@ -15,10 +15,11 @@
         vm.tema = [];
         vm.user = [];
         vm.coment = "";
-        //vm.message = "";
+        vm.friends = [];
         vm.contentTema = "";
         vm.comentario = comentario;
         vm.imageUpload = imageUpload;
+        vm.addFriend = addFriend;
 
         if($cookieStore.get('session')){
             vm.username = $cookieStore.get('session').user;
@@ -128,5 +129,25 @@
             });
         }
 
+        function addFriend(user){
+
+            if(vm.username != user && user !=""){
+                vm.friends[0] = user;
+                var data = {
+                    'friends': vm.friends,
+                    'username': vm.username
+                };
+
+                return dataservice.addFriend(data).then(function(response) {
+                    if(response.data != ("error" &&  "errorexist")) {
+                        logger.success('El usuario '+user+' es ahora amigo tuyo');
+                    }else if(response.data == "errorexist"){
+                        logger.error('El usuario '+user+' ya es amigo tuyo');
+                    }else{
+                        logger.error('Ha habido un error al añadir a tu lista de amigos a'+user);
+                    }
+                });
+            }
+        }
     }
 })();

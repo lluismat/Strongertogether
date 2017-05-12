@@ -26,6 +26,7 @@
         getCategorias:getCategorias,
         getTema:getTema,
         crearComentario:crearComentario,
+        addFriend:addFriend,
         getMessageCount: getMessageCount
     };
 
@@ -77,6 +78,20 @@
 
       function getCategorias() {
           return $http.post('/api/categorias')
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function addFriend(data) {
+          return $http.post('/api/addfriend', data)
               .then(success)
               .catch(fail);
 
