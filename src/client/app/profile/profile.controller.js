@@ -36,6 +36,7 @@
           });
       }
 
+      //funcion para obtener los datos del usuario logeado
       function getProfile(){
 
               var data = {
@@ -58,6 +59,7 @@
               });
       }
 
+      //funcion para guardar la informacion del usuario
       function saveProfile(){
           console.log(vm.avatar);
           if(vm.avatar  && vm.avatar != "default_user.png"){
@@ -106,6 +108,7 @@
       });
       }
 
+      //funcion para guardar la informacion de la cuenta (email,contraseña)
       function saveAccount(){
 
           var data = {
@@ -135,13 +138,14 @@
 
       //PAGINATION TABLE
 
+      //funcion que saca el numero de paginas que habra segun el numero de temas que haya.
       function countPages() {
           vm.pages = Math.ceil(vm.temas.length/vm.pageSize);
           for (var i=1; i<=vm.pages; i++) {
               vm.maxPages.push(i);
           }
       }
-
+      //funcion para paginar
       function pagination(page){
           if (page == "first"){
               vm.currentPage= 1;

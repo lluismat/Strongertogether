@@ -22,6 +22,9 @@
                     <div class="form-group comentario_box">
                         <div class="col-md-9 contenido_comentario" ng-bind-html="vm.contentTema"></div>
                     </div>
+                    <div class="form-actions text-right" >
+                        <a href="/editar_tema?id={{ vm.tema.id }}" ng-show="vm.username == vm.tema.autor" class="btn btn-primary editar_tema">Editar</a>
+                    </div>
                 </div><br><br>
                 <h2>COMENTARIOS</h2>
                 <hr>
@@ -39,6 +42,9 @@
                     </div>
                     <div class="form-group comentario_box">
                         <div class="col-md-9 contenido_comentario" ng-bind-html="comentario.contenido"></div>
+                    </div>
+                    <div class="form-actions text-right" >
+                        <a href="#" ng-show="vm.username == comentario.autor" class="btn btn-primary editar_tema">Editar</a>
                     </div>
                 </div><br>
             </div>

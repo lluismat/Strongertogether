@@ -63,7 +63,7 @@ foroModel.getTema = function(id,callback){
                         callback(null,"error");
                     }else{
                         //var sql3 = 'SELECT * FROM comentarios WHERE tema = "'+id+'"';
-                        var sql3 = 'SELECT c.*,u.id,u.username,u.avatar FROM comentarios c,users u WHERE c.tema = "'+id+'" AND u.username = c.autor';
+                        var sql3 = 'SELECT c.*,u.id,u.username,u.avatar FROM comentarios c,users u WHERE c.tema = "'+id+'" AND u.username = c.autor ORDER BY c.id';
                         mysql.connection.query(sql3, function(error, coments) {
                             if(error){
                                 callback(null,"error");

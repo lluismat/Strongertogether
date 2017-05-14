@@ -1,0 +1,26 @@
+<div class="page-container" ng-controller="temaController as vm">
+    <form class="form-horizontal" role="form" id="form_editar_tema" name="form_editar_tema" style="margin: 0 10px 10px 10px;"><br>
+        <div style="width: 100%;"  class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-pencil"></i> Editar Tema</h6>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Titulo Tema</label>
+                        <input id="titulo" name="titulo" type="text" ng-model="vm.titulo" class="form-control" required>
+                        <p><span class="text-danger" ng-show="form_editar_tema.titulo.$error.required && (form_editar_tema.titulo.$dirty || form_editar_tema.titulo.$touched)">El campo es obligatorio</span></p>
+                    </div>
+                </div>
+                <div class="block-inner">
+                    <div id="contenido" name="contenido" summernote config="vm.options" ng-model="vm.contenido" on-image-upload="vm.imageUpload(files)" editable="editable" editor="editor" required></div>
+                    <p><span class="text-danger" ng-show="form_editar_tema.contenido.$error.required && (form_editar_tema.contenido.$dirty || form_editar_tema.contenido.$touched)">El campo es obligatorio</span></p>
+                </div>
+                <div class="form-actions text-right">
+                    <a href="/tema?id={{ vm.tema.id }}" type="submit" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" ng-click="vm.crearTema()" ng-disabled="form_editar_tema.titulo.$invalid || (form_editar_tema.contenido.$invalid)">Editar Tema</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
