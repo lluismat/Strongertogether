@@ -5,9 +5,9 @@
         .module('app.foro')
         .controller('temaController', temaController);
 
-    temaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$sce', '$uibModal'];
+    temaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$sce'];
     /* @ngInject */
-    function temaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $sce, $uibModal) {
+    function temaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $sce) {
         var vm = this;
         vm.titulo = "";
         vm.username ="";
@@ -20,6 +20,7 @@
         vm.comentario = comentario;
         vm.imageUpload = imageUpload;
         vm.addFriend = addFriend;
+        vm.editar_tema = editar_tema;
 
         if($cookieStore.get('session')){
             vm.username = $cookieStore.get('session').user;
@@ -54,6 +55,26 @@
                 return $q.all(promises).then(function() {
                 });
             }
+        }
+
+        //RECOGE TODOS LOS DATOS DEL TEMA Y LOS COMENTARIOS ASOCIADOS A EL
+        function getTema(){
+            var data = {
+                'id': $stateParams.id
+            };
+            return dataservice.getTema(data).then(function(response) {
+                if(response.data != "error"){
+                    vm.tema = response.data["tema"];
+                    vm.user = response.data["user"];
+                    vm.coment = response.data["comentarios"];
+                    vm.contentTema = $sce.trustAsHtml(vm.tema.contenido);
+
+                    for(var i = 0; i < vm.coment.length;i++){
+                        vm.coment[i].contenido = $sce.trustAsHtml(vm.coment[i].contenido);
+                    }
+                    console.log(vm.tema);
+                }
+            });
         }
 
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
@@ -107,26 +128,35 @@
                 });
             }else{
                 logger.error('Para Comentar debes de estar registrado');
+                $state.go('tema',{id:$stateParams.id});
             }
         }
 
-        //RECOGE LOS TEMAS DE CADA CATEGORIA Y LOS PINTA
-        function getTema(){
-            var data = {
-                'id': $stateParams.id
-            };
-            return dataservice.getTema(data).then(function(response) {
-                if(response.data != "error"){
-                    vm.tema = response.data["tema"];
-                    vm.user = response.data["user"];
-                    vm.coment = response.data["comentarios"];
-                    vm.contentTema = $sce.trustAsHtml(vm.tema.contenido);
+        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y EDITA EL TEMA
+        function editar_tema(){
+            if(vm.username !="" && vm.username == vm.tema.autor){
+                var data = {
+                    'titulo': vm.tema.titulo,
+                    'contenido': vm.tema.contenido,
+                    'tema': $stateParams.id
+                };
+                console.log(data);
 
-                    for(var i = 0; i < vm.coment.length;i++){
-                        vm.coment[i].contenido = $sce.trustAsHtml(vm.coment[i].contenido);
+                return dataservice.editar_tema(data).then(function(response) {
+                    if(response.data != "error"){
+                        vm.coment = response.data.contenido;
+                        logger.success('Comentario creado con exito');
+                        $state.go('tema',{id:$stateParams.id});
+                    }else{
+                        logger.error('Ha habido un error al hacer el comentario');
+                        $state.go('tema',{id:$stateParams.id});
                     }
-                }
-            });
+
+                });
+            }else{
+                logger.error('No puedes editar un tema que no es tuyo!!');
+                $state.go('tema',{id:$stateParams.id});
+            }
         }
 
         function addFriend(user){

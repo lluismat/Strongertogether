@@ -12,6 +12,18 @@ exports.crearTema = function(req, res) {
     });
 };
 
+exports.editarTema= function(req, res) {
+
+    foroModel.editarTema(req.body, function(err, tema) {
+        if (err) {
+            return res.send(tema);
+        }else{
+            return res.send(tema);
+        }
+
+    });
+};
+
 exports.getTemas = function(req, res) {
 
     foroModel.getTemas(req.body.categoria, function(err, temas) {
@@ -59,6 +71,31 @@ exports.crearComentario = function(req, res) {
 
     });
 };
+
+exports.getComentario = function(req, res) {
+
+    foroModel.getComentario(req.body.id, function(err, tema) {
+        if (err) {
+            return res.send(tema);
+        }else{
+            return res.send(tema);
+        }
+
+    });
+};
+
+exports.editarComentario = function(req, res) {
+
+    foroModel.editarComentario(req.body, function(err, comentario) {
+        if (err) {
+            return res.send(comentario);
+        }else{
+            return res.send(comentario);
+        }
+
+    });
+};
+
 
 exports.addFriend = function(req, res) {
     foroModel.addFriend(req.body, function(err, user) {

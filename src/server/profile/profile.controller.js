@@ -11,6 +11,43 @@ exports.getProfile = function(req, res) {
 
         });
 };
+
+exports.getMensajes = function(req, res) {
+
+    profile.getMensajes(req.body.user, function(err, meensajes) {
+        if (err) {
+            return res.send(err);
+        }else{
+            return res.send(meensajes);
+        }
+
+    });
+};
+
+exports.showMensaje = function(req, res) {
+
+    profile.showMensaje(req.body, function(err, mensaje) {
+        if (err) {
+            return res.send(err);
+        }else{
+            return res.send(mensaje);
+        }
+
+    });
+};
+
+exports.readMessage = function(req, res) {
+
+    profile.readMessage(req.body, function(err, mensaje) {
+        if (err) {
+            return res.send("error");
+        }else{
+            return res.send(mensaje);
+        }
+
+    });
+};
+
 exports.saveProfile = function(req, res) {
 
     profile.saveProfile(req.body.user, function(err, user) {

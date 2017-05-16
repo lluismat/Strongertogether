@@ -2,23 +2,24 @@
     'use strict';
 
     angular
-        .module('app.foro')
-        .controller('crearTemaController', crearTemaController);
+        .module('app.mensaje')
+        .controller('mensajeController', mensajeController);
 
-    crearTemaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$timeout'];
+    mensajeController.$inject = ['$q', '$state', 'logger', '$scope', '$rootScope', 'dataservice', '$cookieStore', 'Upload', '$stateParams'];
     /* @ngInject */
-    function crearTemaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $timeout) {
+    function mensajeController($q, $state, logger, $scope, $rootScope, dataservice, $cookieStore, Upload, $stateParams) {
         var vm = this;
-        vm.titulo = "";
-        vm.username ="";
-        vm.contenido = "";
-        vm.crearTema = crearTema;
+        vm.title = 'mensaje';
+        vm.asunto = "";
+        vm.mensaje = "";
+        vm.autor = "";
+        vm.destinatario = "";
+        vm.tema = $stateParams.tema;
+        vm.username = $cookieStore.get('session').user;
+        vm.sendMessage = sendMessage;
         vm.imageUpload = imageUpload;
 
-        if($cookieStore.get('session')){
-            vm.username = $cookieStore.get('session').user;
-        }
-
+        //opciones del editor de texto
         vm.options = {
             height: 300,
             lang: 'es-ES',
@@ -40,21 +41,9 @@
             ]
         };
 
-        tema();
-
-        function tema() {
-            if(vm.username == ""){
-                logger.warning('Para crear un tema debes iniciar session en Strongertogether!');
-                $timeout(function() {
-                    $state.go('foro');
-                }, 1000);
-
-            }
-        }
 
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
         function imageUpload(files) {
-            console.log(files[0]);
             Upload.upload({
                 url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
                 data:{
@@ -80,28 +69,28 @@
             });
         }
 
-        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y CREA EL TEMA
-        function crearTema(){
+        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y ENVIA EL MENSAJE
+        function sendMessage(){
             if(vm.username !=""){
                 var data = {
-                    'titulo': vm.titulo,
-                    'contenido': vm.contenido,
+                    'asunto': vm.asunto,
+                    'mensaje': vm.mensaje,
                     'autor': vm.username,
-                    'categoria': $stateParams.categoria
+                    'destinatario': $stateParams.user
                 };
                 console.log(data);
 
-                return dataservice.crearTema(data).then(function(response) {
+                return dataservice.sendMessage(data).then(function(response) {
                     if(response.data != "error"){
-                        logger.success('Tema Creado con exito');
+                        logger.success('Mensaje enviado con exito');
                         $state.go('foro');
                     }else{
-                        logger.error('Ha habido un erro al crear el tema');
+                        logger.error('Ha habido un error al enviar el mensaje');
                     }
 
                 });
             }else{
-                logger.error('Para crear un tema debes de estar registrado');
+                logger.error('Para enviar mensajes debes estar registrado');
             }
         }
 

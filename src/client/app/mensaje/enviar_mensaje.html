@@ -1,0 +1,32 @@
+<style>
+    .form-horizontal .form-group {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+</style>
+<div class="page-container" ng-controller="mensajeController as vm">
+    <form class="form-horizontal" role="form" id="form_sendMessage" name="form_sendMessage" style="margin: 0 10px 10px 10px;"><br>
+        <div style="width: 100%;"  class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="panel-title"><i class="icon-pencil"></i>Enviar Mensaje</h6>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Asunto</label>
+                        <input id="asunto" name="asunto" type="text" ng-model="vm.asunto" class="form-control" required>
+                        <p><span class="text-danger" ng-show="form_sendMessage.titulo.$error.required && (form_sendMessage.titulo.$dirty || form_sendMessage.titulo.$touched)">El campo es obligatorio</span></p>
+                    </div>
+                </div>
+                <div class="block-inner">
+                    <div id="mensaje" name="mensaje" summernote config="vm.options" ng-model="vm.mensaje" on-image-upload="vm.imageUpload(files)" editable="editable" editor="editor" required></div>
+                    <p><span class="text-danger" ng-show="form_sendMessage.mensaje.$error.required && (form_sendMessage.mensaje.$dirty || form_sendMessage.mensaje.$touched)">El campo es obligatorio</span></p>
+                </div>
+                <div class="form-actions text-right">
+                    <a href="/tema?id={{ vm.tema }}" type="submit" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" ng-click="vm.sendMessage()" ng-disabled="form_sendMessage.asunto.$invalid || (form_sendMessage.mensaje.$invalid)">Enviar Mensaje</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

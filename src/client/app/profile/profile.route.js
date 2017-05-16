@@ -20,7 +20,7 @@
           templateUrl: 'app/profile/profile.html',
           controller: 'ProfileController',
           controllerAs: 'vm',
-          title: 'Perfil',
+          title: 'Perfil'
         }
       }
     ];

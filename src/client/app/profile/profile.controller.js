@@ -5,9 +5,9 @@
     .module('app.profile')
     .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = ['$q', '$state', 'logger', '$rootScope', 'dataservice', '$cookieStore', 'Upload'];
+  ProfileController.$inject = ['$q', '$state', 'logger', '$rootScope', 'dataservice', '$cookieStore', 'Upload', '$uibModal', '$sce'];
   /* @ngInject */
-  function ProfileController($q, $state, logger, $rootScope, dataservice, $cookieStore, Upload) {
+  function ProfileController($q, $state, logger, $rootScope, dataservice, $cookieStore, Upload, $uibModal, $sce) {
       var vm = this;
       vm.title = 'Profile';
       vm.saveProfile = saveProfile;
@@ -19,13 +19,24 @@
       vm.temas = [];
       vm.currentPage = 1;
       vm.pageSize = 15;
-      vm.maxPages = [];
-      vm.pages = 1;
+      vm.maxPagesTemas = [];
+      vm.maxPagesMessage = [];
+      vm.pagesTemas = 1;
+      vm.pagesMessage = 1;
       vm.numTemas = 0;
       vm.temasPage =[];
       vm.currentCat = "";
-      vm.countPages=countPages;
-      vm.pagination = pagination;
+      vm.mensajes = [];
+      vm.showTemas = showTemas;
+      vm.showMessages = showMessages;
+      vm.paginationTemas = paginationTemas;
+      vm.paginationMensajes = paginationMensajes;
+      vm.countPagesTemas = countPagesTemas;
+      vm.countPagesMensajes = countPagesMensajes;
+      vm.getMensajes = getMensajes;
+      vm.showMessage = showMessage;
+      vm.getMessage = getMessage;
+      vm.read_message = read_message;
       vm.username = $cookieStore.get('session').user;
 
       activate();
@@ -33,6 +44,7 @@
       function activate() {
           var promises = [getProfile()];
           return $q.all(promises).then(function() {
+              getMensajes();
           });
       }
 
@@ -56,7 +68,65 @@
                   if($rootScope.user.city == "null"){
                       $rootScope.user.city = "";
                   }
+                  countPagesTemas();
+                  showTemas();
               });
+      }
+
+      //funcion para obtener todos los mensajes
+      function getMensajes(){
+
+          var data = {
+              'user': vm.username
+          };
+
+          return dataservice.getMensajes(data).then(function(response) {
+              vm.mensajes = response.data;
+              countPagesMensajes();
+              showMessages();
+          });
+      }
+
+      //funcion para ver un mensaje
+      function showMessage(id){
+          var promises = [getMessage(id)];
+          return $q.all(promises).then(function() {
+              var modalInstance = $uibModal.open({
+                  animation: 'true',
+                  templateUrl: 'app/profile/showMessage.html',
+                  controller: 'modalController',
+                  size: 'lg'
+              });
+              read_message(id);
+          });
+      }
+      
+      function getMessage(id) {
+
+          var data = {
+              'id': id,
+              'destinatario':vm.username
+          };
+          return dataservice.showMessage(data).then(function(response) {
+              if(response.data != "error"){
+                  $rootScope.asunto = response.data.asunto;
+                  $rootScope.mensaje = $sce.trustAsHtml(response.data.mensaje);
+                  $rootScope.autor = response.data.autor;
+              }else{
+                  logger.error('Ups, Ha habido un error y no se ha posido mostrar el mensaje en este momento');
+              }
+          });
+      }
+      function read_message(id) {
+          var data = {
+              'id': id,
+              'destinatario':vm.username
+          };
+          return dataservice.readMessage(data).then(function(response) {
+              if(response.data != "error"){
+                  $state.reload();
+              }
+          });
       }
 
       //funcion para guardar la informacion del usuario
@@ -138,15 +208,44 @@
 
       //PAGINATION TABLE
 
-      //funcion que saca el numero de paginas que habra segun el numero de temas que haya.
-      function countPages() {
-          vm.pages = Math.ceil(vm.temas.length/vm.pageSize);
-          for (var i=1; i<=vm.pages; i++) {
-              vm.maxPages.push(i);
+      //funcion que muestra los temas maximos que se pueden mostrar en una pagina
+      function showTemas(){
+          var startIndex = (vm.currentPage - 1) * vm.pageSize;
+          var endIndex = Math.min(startIndex + vm.pageSize - 1, vm.temas.length - 1);
+          vm.temasPage = vm.temas.slice(startIndex, endIndex + 1);
+      }
+
+      function showMessages(){
+          var startIndex = (vm.currentPage - 1) * vm.pageSize;
+          var endIndex = Math.min(startIndex + vm.pageSize - 1, vm.mensajes.todos.length - 1);
+          vm.mensajesPage = vm.mensajes.todos.slice(startIndex, endIndex + 1);
+          for (var i=0; i<vm.mensajesPage.length; i++) {
+              if(vm.mensajesPage[i].leido == 0){
+                  vm.mensajesPage[i].leido = "noleido";
+              }else{
+                  vm.mensajesPage[i].leido = "leido";
+              }
           }
       }
+
+      //funcion que saca el numero de paginas que habra segun el numero de temas que haya.
+      function countPagesTemas() {
+          vm.pages = Math.ceil(vm.temas.length/vm.pageSize);
+          for (var i=1; i<=vm.pagesTemas; i++) {
+              vm.maxPagesTemas.push(i);
+          }
+      }
+
+      //funcion que saca el numero de paginas que habra segun el numero de temas que haya.
+      function countPagesMensajes() {
+          vm.pages = Math.ceil(vm.mensajes.todos.length/vm.pageSize);
+          for (var i=1; i<=vm.pagesMessage; i++) {
+              vm.maxPagesMessage.push(i);
+          }
+      }
+
       //funcion para paginar
-      function pagination(page){
+      function paginationTemas(page){
           if (page == "first"){
               vm.currentPage= 1;
           }else if(page == "prev"){
@@ -154,9 +253,20 @@
           }else if(page == "next"){
               vm.currentPage=vm.currentPage+1;
           }else if(page == "last"){
-              vm.currentPage=vm.pages;
+              vm.currentPage=vm.pagesTemas;
           }
-          console.log(vm.currentPage);
+      }
+
+      function paginationMensajes(page){
+          if (page == "first"){
+              vm.currentPage= 1;
+          }else if(page == "prev"){
+              vm.currentPage=vm.currentPage-1;
+          }else if(page == "next"){
+              vm.currentPage=vm.currentPage+1;
+          }else if(page == "last"){
+              vm.currentPage=vm.pagesMessage;
+          }
       }
   }
 })();

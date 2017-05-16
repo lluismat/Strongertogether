@@ -5,10 +5,11 @@
       .module('app.layout')
       .controller('SidebarController', SidebarController);
 
-  SidebarController.$inject = ['$state','routerHelper', '$cookieStore', 'dataservice', '$uibModal', '$rootScope', '$q', 'logger'];
+  SidebarController.$inject = ['$state','routerHelper', '$cookieStore', 'dataservice', '$uibModal', '$rootScope', '$q', 'logger', '$sce'];
   /* @ngInject */
-  function SidebarController($state, routerHelper, $cookieStore, dataservice, $uibModal, $rootScope, $q, logger) {
+  function SidebarController($state, routerHelper, $cookieStore, dataservice, $uibModal, $rootScope, $q, logger, $sce) {
     var vm = this;
+      vm.mensajes = [];
 
     var states = routerHelper.getStates();
       vm.openModal = openModal;
@@ -16,9 +17,64 @@
       vm.showLogin = showLogin;
       vm.logout = logout;
       vm.openRecoveryPass = openRecoveryPass;
+      vm.showMessage = showMessage;
+      vm.read_message = read_message;
+
 
       showLogin();
+      
+      function showMessages(user) {
+          var data = {
+              'user': user
+          };
 
+          return dataservice.getMensajes(data).then(function(response) {
+              vm.mensajes = response.data;
+              console.log(vm.mensajes);
+          });
+      }
+
+      //funcion para ver un mensaje
+      function showMessage(id){
+          var promises = [getMessage(id)];
+          return $q.all(promises).then(function() {
+              var modalInstance = $uibModal.open({
+                  animation: 'true',
+                  templateUrl: 'app/profile/showMessage.html',
+                  controller: 'modalController',
+                  size: 'lg'
+              });
+              read_message(id);
+          });
+      }
+
+      function getMessage(id) {
+
+          var data = {
+              'id': id,
+              'destinatario':$rootScope.username
+          };
+          return dataservice.showMessage(data).then(function(response) {
+              if(response.data != "error"){
+                  $rootScope.asunto = response.data.asunto;
+                  $rootScope.mensaje = $sce.trustAsHtml(response.data.mensaje);
+                  $rootScope.autor = response.data.autor;
+              }else{
+                  logger.error('Ups, Ha habido un error y no se ha posido mostrar el mensaje en este momento');
+              }
+          });
+      }
+      function read_message(id) {
+          var data = {
+              'id': id,
+              'destinatario':$rootScope.username
+          };
+          return dataservice.readMessage(data).then(function(response) {
+              if(response.data != "error"){
+                  showMessages($rootScope.username);
+              }
+          });
+      }
 
       function logout() {
           console.log("logout");
@@ -39,6 +95,7 @@
               $rootScope.username = user.user;
               $rootScope.avatar = user.avatar;
               $rootScope.tipo = user.tipo;
+              showMessages(user.user);
           } else {
               $rootScope.Session = false;
           }

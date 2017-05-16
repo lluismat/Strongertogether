@@ -17,6 +17,19 @@ foroModel.crearTema = function(tema,callback){
     }
 };
 
+foroModel.editarTema = function(tema,callback){
+    if (mysql.connection) {
+        var sql = 'UPDATE tema SET titulo ="' + tema.titulo + '",contenido ="'+new Buffer(tema.contenido).toString('base64')+'" WHERE id = "'+tema.tema+'"';
+        mysql.connection.query(sql, function(error, row) {
+            if(error){
+                callback(null,"error");
+            }else{
+                callback(null, tema);
+            }
+        });
+    }
+};
+
 foroModel.crearComentario = function(comentario,callback){
     console.log(comentario);
     if (mysql.connection) {
@@ -37,6 +50,20 @@ foroModel.crearComentario = function(comentario,callback){
     }
 };
 
+foroModel.editarComentario = function(comentario,callback){
+    console.log(comentario);
+    if (mysql.connection) {
+        var sql = 'UPDATE comentarios SET contenido ="'+new Buffer(comentario.contenido).toString('base64')+'" WHERE id = "'+comentario.comentario+'"';
+        mysql.connection.query(sql, function(error, row) {
+            if(error){
+                callback(null,"error");
+            }else{
+                callback(null, comentario);
+            }
+        });
+    }
+};
+
 foroModel.getTemas = function(categoria,callback){
     if (mysql.connection) {
         var sql = 'SELECT * FROM tema WHERE categoria = "'+categoria+'"';
@@ -45,6 +72,20 @@ foroModel.getTemas = function(categoria,callback){
                 callback(null,"error");
             }else{
                 callback(null, row);
+            }
+        });
+    }
+};
+
+foroModel.getComentario = function(id,callback){
+    if (mysql.connection) {
+        var sql = 'SELECT * FROM comentarios WHERE id = "'+id+'"';
+        mysql.connection.query(sql, function(error, row) {
+            if(error){
+                callback(null,"error");
+            }else{
+                row[0].contenido = new Buffer(row[0].contenido, 'base64').toString("utf8");
+                callback(null, row[0]);
             }
         });
     }
@@ -63,7 +104,7 @@ foroModel.getTema = function(id,callback){
                         callback(null,"error");
                     }else{
                         //var sql3 = 'SELECT * FROM comentarios WHERE tema = "'+id+'"';
-                        var sql3 = 'SELECT c.*,u.id,u.username,u.avatar FROM comentarios c,users u WHERE c.tema = "'+id+'" AND u.username = c.autor ORDER BY c.id';
+                        var sql3 = 'SELECT c.*,c.id as comentario,u.id,u.username,u.avatar FROM comentarios c,users u WHERE c.tema = "'+id+'" AND u.username = c.autor ORDER BY c.id';
                         mysql.connection.query(sql3, function(error, coments) {
                             if(error){
                                 callback(null,"error");

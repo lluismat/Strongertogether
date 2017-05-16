@@ -14,8 +14,8 @@
                             <h6><a href="#">{{ vm.tema.autor }}&nbsp;<span class="status status-success"></span></a></h6>
                         </div>
                         <div class="chat-actions">
-                            <a class="btn btn-link btn-icon btn-xs" data-toggle="collapse" href="#"><i class="icon-bubble3"></i></a>
-                            <a href="#" class="btn btn-link btn-icon btn-xs"><i class="icon-bullhorn"></i></a>
+                            <a href="/enviar_mensaje?user={{vm.tema.autor}}&tema={{vm.tema.id}}" ng-disabled="vm.username == vm.tema.autor" class="btn btn-link btn-icon btn-xs" data-toggle="collapse" ><i class="icon-bubble3"></i></a>
+                            <a href="#" class="btn btn-link btn-icon btn-xs" ng-disabled="vm.username == vm.tema.autor"><i class="icon-bullhorn"></i></a>
                             <a href="#" ng-click="vm.addFriend(vm.tema.autor)" ng-disabled="vm.username == vm.tema.autor" class="btn btn-link btn-icon btn-xs"><i class="icon-user-plus2"></i></a>
                         </div>
                     </div><hr>
@@ -35,8 +35,8 @@
                             <h6><a href="#">{{ comentario.autor }}&nbsp;<span class="status status-success"></span></a></h6>
                         </div>
                         <div class="chat-actions">
-                            <a class="btn btn-link btn-icon btn-xs" data-toggle="collapse" href="#"><i class="icon-bubble3"></i></a>
-                            <a href="#" class="btn btn-link btn-icon btn-xs"><i class="icon-bullhorn"></i></a>
+                            <a href="/enviar_mensaje?user={{comentario.autor}}&tema={{vm.tema.id}}" ng-disabled="vm.username == comentario.autor" class="btn btn-link btn-icon btn-xs" data-toggle="collapse"><i class="icon-bubble3"></i></a>
+                            <a href="#" class="btn btn-link btn-icon btn-xs" ng-disabled="vm.username == comentario.autor"><i class="icon-bullhorn"></i></a>
                             <a href="#" ng-click="vm.addFriend(comentario.autor)" ng-disabled="vm.username == comentario.autor" class="btn btn-link btn-icon btn-xs"><i class="icon-user-plus2"></i></a>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="col-md-9 contenido_comentario" ng-bind-html="comentario.contenido"></div>
                     </div>
                     <div class="form-actions text-right" >
-                        <a href="#" ng-show="vm.username == comentario.autor" class="btn btn-primary editar_tema">Editar</a>
+                        <a href="/editar_comentario?id={{ comentario.comentario}}&tema={{vm.tema.id}}" ng-show="vm.username == comentario.autor" class="btn btn-primary editar_tema">Editar</a>
                     </div>
                 </div><br>
             </div>

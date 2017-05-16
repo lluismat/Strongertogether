@@ -1,0 +1,25 @@
+.modal-header{
+    background-color: #55D0FF;
+}
+
+.modal-title{
+    font-size: 16px;
+}
+
+.content_box{
+    font-size: 14px;
+}
+
+.mensaje_box{
+    margin: 20px 20px 20px 20px;
+    padding: 30px 30px 30px 30px;
+    border: 2px solid #f0f0f0;
+}
+
+.asunto_box{
+    margin: 20px 20px 20px 20px;
+}
+
+.autor_box{
+    margin: 0 20px 0 20px;
+}

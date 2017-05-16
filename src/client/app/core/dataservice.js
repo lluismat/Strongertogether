@@ -27,6 +27,13 @@
         getTema:getTema,
         crearComentario:crearComentario,
         addFriend:addFriend,
+        editar_tema:editar_tema,
+        getComentario:getComentario,
+        editar_comentario:editar_comentario,
+        getMensajes:getMensajes,
+        sendMessage:sendMessage,
+        showMessage:showMessage,
+        readMessage:readMessage,
         getMessageCount: getMessageCount
     };
 
@@ -35,18 +42,60 @@
     function getMessageCount() { return $q.when(72); }
 
     function profile(data) {
-      return $http.post('/api/profile', data)
-          .then(success)
-          .catch(fail);
+          return $http.post('/api/profile', data)
+              .then(success)
+              .catch(fail);
 
-      function success(response) {
-        return response;
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
       }
 
-      function fail() {
-        return false;
+      function showMessage(data) {
+          return $http.post('/api/show_message', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
       }
-    }
+
+      function getMensajes(data) {
+          return $http.post('/api/get_mensajes', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function readMessage(data) {
+          return $http.post('/api/read_message', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
 
       function getTemas(data) {
           return $http.post('/api/temas', data)
@@ -64,6 +113,20 @@
 
       function getTema(data) {
           return $http.post('/api/tema', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function getComentario(data) {
+          return $http.post('/api/comentario', data)
               .then(success)
               .catch(fail);
 
@@ -106,6 +169,48 @@
 
       function crearTema(data) {
           return $http.post('/api/nuevo_tema', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function sendMessage(data) {
+          return $http.post('/api/send_message', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function editar_tema(data) {
+          return $http.post('/api/editar_tema', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function editar_comentario(data) {
+          return $http.post('/api/editar_comentario', data)
               .then(success)
               .catch(fail);
 

@@ -52,6 +52,26 @@
                   controllerAs: 'vm',
                   title: 'Nuevo Comentario'
               }
+          },
+          {
+              state: 'editar_tema',
+              config: {
+                  url: '/editar_tema?id',
+                  templateUrl: 'app/foro/editar_tema.html',
+                  controller: 'temaController',
+                  controllerAs: 'vm',
+                  title: 'Editar Tema'
+              }
+          },
+          {
+              state: 'editar_comentario',
+              config: {
+                  url: '/editar_comentario?id&tema',
+                  templateUrl: 'app/foro/editar_comentario.html',
+                  controller: 'editarComentarioController',
+                  controllerAs: 'vm',
+                  title: 'Editar Comentario'
+              }
           }
       ];
   }

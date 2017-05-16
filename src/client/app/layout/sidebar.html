@@ -22,8 +22,8 @@
     </ul>
 
     <!-- ACTIVIDAD RECIENTE -->
-    <ul class="nav navbar-nav navbar-icons navbar-right collapse" id="navbar-menu-right">
-        <li class="dropdown">
+    <ul class="nav navbar-nav navbar-icons navbar-right collapse" id="navbar-menu-right" >
+        <li class="dropdown" ng-show="Session">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-bell"></i>
                 <span class="label label-default">1</span>
@@ -46,10 +46,10 @@
             </div>
         </li>
         <!-- MENSAJES SIN LEER -->
-        <li class="dropdown">
+        <li class="dropdown" ng-show="Session">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-envelop"></i>
-                <span class="label label-default">1</span>
+                <span class="label label-danger" style="background-color: #D65C4F !important;" ng-show="vm.mensajes.mensajes >= 1">{{ vm.mensajes.mensajes }}</span>
             </a>
             <div class="popup dropdown-menu dropdown-menu-right">
                 <div class="popup-header">
@@ -58,11 +58,11 @@
                     <a href="#" class="pull-right"><i class="icon-new-tab"></i></a>
                 </div>
                 <ul class="popup-messages">
-                    <li>
-                        <a href="#">
-                            <img src="" alt="" class="user-face">
-                            <strong>Lluis Mataix <i class="icon-attachment2"></i></strong>
-                            <span>Hola, esto es una prueba...</span>
+                    <li  ng-repeat="mensaje in vm.mensajes.noleidos">
+                        <a href="#" ng-click="vm.showMessage(mensaje.id)">
+                            <img src="src/server/uploads/avatars/{{ mensaje.avatar }}" alt="" class="user-face">
+                            <strong>{{ mensaje.autor }}<i class="icon-attachment2"></i></strong>
+                            <span>Asunto: {{ mensaje.asunto }}</span>
                         </a>
                     </li>
                 </ul>

@@ -62,12 +62,15 @@
       }
 
       //PAGINATION
+
+      //funcion que muestra los temas maximos que se pueden mostrar en una pagina
       function showTemas(){
           var startIndex = (vm.currentPage - 1) * vm.pageSize;
           var endIndex = Math.min(startIndex + vm.pageSize - 1, vm.temas.length - 1);
           vm.temasPage = vm.temas.slice(startIndex, endIndex + 1);
       }
 
+      //cuenta el numero de paginas que habra
      function countPages() {
          vm.pages = Math.ceil(vm.temas.length/vm.pageSize);
          for (var i=1; i<=vm.pages; i++) {
@@ -75,6 +78,7 @@
          }
       }
 
+      //funcion para controlar que hara cada boton del paginar
       function pagination(page){
           if (page == "first"){
               vm.currentPage= 1;

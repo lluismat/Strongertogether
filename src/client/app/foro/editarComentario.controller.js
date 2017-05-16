@@ -3,17 +3,17 @@
 
     angular
         .module('app.foro')
-        .controller('crearTemaController', crearTemaController);
+        .controller('editarComentarioController', editarComentarioController);
 
-    crearTemaController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams', '$timeout'];
+    editarComentarioController.$inject = ['$q', 'dataservice', 'logger', '$scope', '$cookieStore', '$state', 'Upload', '$stateParams'];
     /* @ngInject */
-    function crearTemaController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams, $timeout) {
+    function editarComentarioController($q, dataservice, logger, $scope, $cookieStore,$state, Upload, $stateParams) {
         var vm = this;
-        vm.titulo = "";
         vm.username ="";
-        vm.contenido = "";
-        vm.crearTema = crearTema;
+        vm.comentario = [];
+        vm.tema = $stateParams.tema;
         vm.imageUpload = imageUpload;
+        vm.editar_comentario = editar_comentario;
 
         if($cookieStore.get('session')){
             vm.username = $cookieStore.get('session').user;
@@ -40,16 +40,26 @@
             ]
         };
 
-        tema();
+        comentario();
 
-        function tema() {
-            if(vm.username == ""){
-                logger.warning('Para crear un tema debes iniciar session en Strongertogether!');
-                $timeout(function() {
-                    $state.go('foro');
-                }, 1000);
-
+        function comentario() {
+            if($stateParams.id){
+                var promises = [getComentario()];
+                return $q.all(promises).then(function() {
+                });
             }
+        }
+
+        //RECOGE LOS DATOS DEL COMENTARIO
+        function getComentario(){
+            var data = {
+                'id': $stateParams.id
+            };
+            return dataservice.getComentario(data).then(function(response) {
+                if(response.data != "error"){
+                    vm.comentario = response.data;
+                }
+            });
         }
 
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
@@ -80,30 +90,30 @@
             });
         }
 
-        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y CREA EL TEMA
-        function crearTema(){
-            if(vm.username !=""){
+        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y EDITA EL COMENTARIO
+        function editar_comentario(){
+            if(vm.username !="" && vm.username == vm.comentario.autor){
                 var data = {
-                    'titulo': vm.titulo,
-                    'contenido': vm.contenido,
-                    'autor': vm.username,
-                    'categoria': $stateParams.categoria
+                    'contenido': vm.comentario.contenido,
+                    'comentario': $stateParams.id
                 };
                 console.log(data);
 
-                return dataservice.crearTema(data).then(function(response) {
+                return dataservice.editar_comentario(data).then(function(response) {
                     if(response.data != "error"){
-                        logger.success('Tema Creado con exito');
-                        $state.go('foro');
+                        vm.coment = response.data.contenido;
+                        logger.success('Cometario editado con exito');
+                        $state.go('tema',{id:vm.tema});
                     }else{
-                        logger.error('Ha habido un erro al crear el tema');
+                        logger.error('Ha habido un error al editar el comentario');
+                        $state.go('tema',{id:vm.tema});
                     }
 
                 });
             }else{
-                logger.error('Para crear un tema debes de estar registrado');
+                logger.error('No puedes editar un comentario que no es tuyo!!');
+                $state.go('tema',{id:vm.tema});
             }
         }
-
     }
 })();

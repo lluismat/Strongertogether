@@ -13,9 +13,9 @@
             <div class="caption text-center">
               <h6>{{ username }} <small>{{ user.description }}</small></h6>
               <div class="icons-group">
-                <a href="#" title="Google Drive" class="tip"><i class="icon-google-drive"></i></a>
-                <a href="#" title="Twitter" class="tip"><i class="icon-twitter"></i></a>
-                <a href="#" title="Github" class="tip"><i class="icon-github3"></i></a>
+                <a href="#" title="facebook" class="tip"><i class="icon-facebook2"></i></a>
+                <a href="#" title="Twitter" class="tip"><i class="icon-twitter2"></i></a>
+                <a href="#" title="google" class="tip"><i class="icon-google-plus3"></i></a>
               </div>
             </div>
           </div>
@@ -26,7 +26,7 @@
           <li><a class="active" href="#activity" data-toggle="tab">Actividad</a></li>
           <li><a href="#">Amigos</a></li>
           <li><a href="#temas" data-toggle="tab">Mis Temas <span class="label label-success">{{ vm.temas.length }}</span></a></li>
-          <li><a href="#">Mensajes <span class="label label-danger">14</span></a></li>
+          <li><a href="#mensajes" data-toggle="tab">Mensajes <span class="label label-danger">{{ vm.mensajes.mensajes }}</span></a></li>
         </ul>
 
         <ul class="nav nav-list">
@@ -41,7 +41,7 @@
     <br>
     <div class="col-md-10">
       <div class="tab-content">
-        <div class="tab-pane active fade in" id="activity">
+        <div class="tab-pane fade in" id="activity">
 
           </div>
         <div class="tab-pane fade in" id="infouser">
@@ -162,14 +162,14 @@
                 <table class="table table-hover">
                   <thead>
                   <tr>
-                    <th><h2>Tema</h2></th>
-                    <th><h2>Categoria</h2></th>
-                    <th><h2>Comentarios</h2></th>
-                    <th><h2>Votos</h2></th>
+                    <th><h4>Tema</h4></th>
+                    <th><h4>Categoria</h4></th>
+                    <th><h4>Comentarios</h4></th>
+                    <th><h4>Votos</h4></th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr ng-repeat="tema in vm.temas">
+                  <tr ng-repeat="tema in vm.temasPage">
 
                     <td><a href="/tema?id={{ tema.id }}"><h2>{{ tema.titulo }}</h2></a></td>
                     <td><h6>{{ tema.nombre }}</h6></td>
@@ -182,11 +182,42 @@
             </div>
             <br>
             <div class="btn-group">
-              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage == 1" ng-click="vm.pagination('first'); vm.showTemas()"><i class="icon-arrow-first"></i></button>
-              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage == 1" ng-click="vm.pagination('prev'); vm.showTemas()"><i class="icon-arrow-left"></i></button>
-              <button ng-repeat="pagina in vm.maxPages" type="button" class="btn btn-primary active" ng-click="vm.currentPage = pagina; vm.showTemas()">{{ pagina }}</button>
-              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pages" ng-click="vm.pagination('next'); vm.showTemas()"><i class="icon-arrow-right2"></i></button>
-              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pages" ng-click="vm.pagination('last'); vm.showTemas()"><i class="icon-arrow-right"></i></button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage == 1" ng-click="vm.paginationTemas('first'); vm.showTemas()"><i class="icon-arrow-first"></i></button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage == 1" ng-click="vm.paginationTemas('prev'); vm.showTemas()"><i class="icon-arrow-left"></i></button>
+              <button ng-repeat="pagina in vm.maxPagesTemas" type="button" class="btn btn-primary active" ng-click="vm.currentPage = pagina; vm.showTemas()">{{ pagina }}</button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pagesTemas" ng-click="vm.paginationTemas('next'); vm.showTemas()"><i class="icon-arrow-right2"></i></button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pagesTemas" ng-click="vm.paginationTemas('last'); vm.showTemas()"><i class="icon-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade in" id="mensajes">
+          <div class="block">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h6 class="panel-title"><i class="icon-envelop"></i>Mensajes</h6></div>
+              <div class="datatable">
+                <table class="table table-hover">
+                  <thead>
+                  <tr>
+                    <th><h4>Asunto</h4></th>
+                    <th><h4>Enviado Por</h4></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="{{mensaje.leido}}" ng-repeat="mensaje in vm.mensajes.todos">
+                    <td><a href="#" ng-click="vm.showMessage(mensaje.id)"><h4>{{mensaje.asunto}}</h4></a></td>
+                    <td><h6>{{ mensaje.autor }}</h6></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage == 1" ng-click="vm.paginationMensajes('first'); vm.showMessages()"><i class="icon-arrow-first"></i></button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage == 1" ng-click="vm.paginationMensajes('prev'); vm.showMessages()"><i class="icon-arrow-left"></i></button>
+              <button ng-repeat="pagina in vm.maxPagesMessage" type="button" class="btn btn-primary active" ng-click="vm.currentPage = pagina; vm.showMessages()">{{ pagina }}</button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pagesMessage" ng-click="vm.paginationMensajes('next'); vm.showMessages()"><i class="icon-arrow-right2"></i></button>
+              <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pagesMessage" ng-click="vm.paginationMensajes('last'); vm.showMessages()"><i class="icon-arrow-right"></i></button>
             </div>
           </div>
         </div>
