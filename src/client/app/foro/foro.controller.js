@@ -26,6 +26,7 @@
       vm.showTemas = showTemas;
       vm.getTemas = getTemas;
 
+      //comprobamos si esta el usuario logeado
       if($cookieStore.get('session')){
           vm.username = $cookieStore.get('session').user;
       }
@@ -89,7 +90,6 @@
           }else if(page == "last"){
               vm.currentPage=vm.pages;
           }
-          console.log(vm.currentPage);
       }
 
   }

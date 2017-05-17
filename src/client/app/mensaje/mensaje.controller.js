@@ -33,9 +33,8 @@
                 ['fontface', ['fontname']],
                 ['textsize', ['fontsize']],
                 ['fontclr', ['color']],
-                ['alignment', ['ul', 'ol']],
-                ['table', ['table']],
-                ['insert', ['link','picture','video']],
+                ['alignment', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link','picture','video','hr']],
                 ['view', ['fullscreen']],
                 ['help', ['help']]
             ]
@@ -53,7 +52,6 @@
             }).then(function (resp) { //upload function returns a promise
                 if(resp.data.error_code === 0){
                     //validate success
-                    console.log(resp);
 
                     $scope.editor.summernote('insertImage', resp.data.path + resp.data.filename);
 
@@ -78,7 +76,6 @@
                     'autor': vm.username,
                     'destinatario': $stateParams.user
                 };
-                console.log(data);
 
                 return dataservice.sendMessage(data).then(function(response) {
                     if(response.data != "error"){

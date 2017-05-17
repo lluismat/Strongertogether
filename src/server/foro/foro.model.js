@@ -4,7 +4,7 @@ var foroModel= {};
 
 foroModel.crearTema = function(tema,callback){
     if (mysql.connection) {
-        var sql = 'INSERT INTO tema (titulo,contenido,autor,categoria) values ("' + tema.titulo + '","' + new Buffer(tema.contenido).toString('base64') + '","' + tema.autor + '","' + tema.categoria + '")';
+        var sql = 'INSERT INTO tema (titulo,contenido,autor,categoria,votos) values ("' + tema.titulo + '","' + new Buffer(tema.contenido).toString('base64') + '","' + tema.autor + '","' + tema.categoria + '","'+0+'")';
         mysql.connection.query(sql, function(error, row) {
             if(error){
                 callback(null,"error");
@@ -31,7 +31,6 @@ foroModel.editarTema = function(tema,callback){
 };
 
 foroModel.crearComentario = function(comentario,callback){
-    console.log(comentario);
     if (mysql.connection) {
         var sql = 'INSERT INTO comentarios (contenido,autor,tema) values ("' + new Buffer(comentario.contenido).toString('base64') + '","' + comentario.autor + '","' + comentario.tema + '")';
         mysql.connection.query(sql, function(error, row) {
@@ -51,7 +50,6 @@ foroModel.crearComentario = function(comentario,callback){
 };
 
 foroModel.editarComentario = function(comentario,callback){
-    console.log(comentario);
     if (mysql.connection) {
         var sql = 'UPDATE comentarios SET contenido ="'+new Buffer(comentario.contenido).toString('base64')+'" WHERE id = "'+comentario.comentario+'"';
         mysql.connection.query(sql, function(error, row) {
@@ -137,6 +135,7 @@ foroModel.getCategorias = function(callback){
     }
 };
 
+//AÑADE UN AMIGO
 foroModel.addFriend = function(user,callback){
     var add_friend=true;
     var friends = "";

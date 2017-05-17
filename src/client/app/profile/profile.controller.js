@@ -18,7 +18,7 @@
       vm.avatar = "";
       vm.temas = [];
       vm.currentPage = 1;
-      vm.pageSize = 15;
+      vm.pageSize = 10;
       vm.maxPagesTemas = [];
       vm.maxPagesMessage = [];
       vm.pagesTemas = 1;
@@ -100,7 +100,8 @@
               read_message(id);
           });
       }
-      
+
+      //FUNCIONA PARA OBTENER EL MENSAJE SELECCIONADO
       function getMessage(id) {
 
           var data = {
@@ -117,6 +118,7 @@
               }
           });
       }
+      //FUNCIONA PARA CAMBIAR A LEIDO UN MENSAJE
       function read_message(id) {
           var data = {
               'id': id,
@@ -131,7 +133,6 @@
 
       //funcion para guardar la informacion del usuario
       function saveProfile(){
-          console.log(vm.avatar);
           if(vm.avatar  && vm.avatar != "default_user.png"){
               Upload.upload({
                   url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
@@ -230,7 +231,7 @@
 
       //funcion que saca el numero de paginas que habra segun el numero de temas que haya.
       function countPagesTemas() {
-          vm.pages = Math.ceil(vm.temas.length/vm.pageSize);
+          vm.pagesTemas = Math.ceil(vm.temas.length/vm.pageSize);
           for (var i=1; i<=vm.pagesTemas; i++) {
               vm.maxPagesTemas.push(i);
           }
@@ -238,7 +239,7 @@
 
       //funcion que saca el numero de paginas que habra segun el numero de temas que haya.
       function countPagesMensajes() {
-          vm.pages = Math.ceil(vm.mensajes.todos.length/vm.pageSize);
+          vm.pagesMessage = Math.ceil(vm.mensajes.todos.length/vm.pageSize);
           for (var i=1; i<=vm.pagesMessage; i++) {
               vm.maxPagesMessage.push(i);
           }

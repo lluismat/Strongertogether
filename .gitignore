@@ -12,7 +12,6 @@ config.db.js
 /src/server/uploads/images/*
 
 # exception to the rule
-/build/
 !/src/server/uploads/images/.empty
 !/src/server/uploads/avatars/default_user.png
 

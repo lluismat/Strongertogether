@@ -27,7 +27,7 @@
           };
 
           dataservice.recoveryPass(data).then(function (response) {
-              console.log(response.data);
+
               if (response.data.email) {
                   logger.success('Peticion recibida con exito, en breve recibira un correo para poder cambiar la contraseña.');
                   $rootScope.closeModal();
@@ -48,7 +48,6 @@
             };
 
             dataservice.signUp(data).then(function (response) {
-              console.log(response.data);
               if (response.data===true) {
                   logger.success('Usuario registrado con exito.');
                   $rootScope.closeModal();
@@ -69,7 +68,6 @@
                 };
 
                 dataservice.login(data).then(function (response) {
-                  console.log(response.data);
                     if ((response.data.username == vm.inputUser || response.data.email == vm.inputUser) && response.data != undefined) {
                         $cookieStore.put('session', {
                             user: response.data.username,

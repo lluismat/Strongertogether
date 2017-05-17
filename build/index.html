@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title ng-bind="title">Strongtogether</title>
+  <link rel="shortcut icon" href="images/favicon"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="google" content="nositelinkssearchbox" />
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="Strongertogether application, help yourself to improve throw hard times" />
+  <meta name="keywords" content="HTML,CSS,JavaScript,NodeJS,Angular,JQuery">
+  <meta name="author" content="Lluis Mataix">
+  <!--CSS-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <!--JS-->
+
+
+  <style>
+    /* This helps the ng-show/ng-hide animations start at the right place. */
+    /* Since Angular has this but needs to load, this gives us the class early. */
+    .ng-hide {
+      display: none!important;
+    }
+  </style>
+  <base href="/">
+
+  <link rel="stylesheet" href="styles/lib-1c12230307.css">
+  <link rel="stylesheet" href="styles/app-dc60f242ae.css">
+</head>
+<body>
+<div>
+  <div ng-include="'app/layout/shell.html'"></div>
+</div>
+
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyD9FGiHcq-P4ACcFAQQpY75UzzONTQrYkM'></script>
+
+
+<script src="js/lib-690bba38cb.js"></script>
+<script src="js/app-b775e44560.js"></script>
+</body>
+
+</html>

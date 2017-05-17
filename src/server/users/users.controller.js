@@ -14,7 +14,6 @@ module.exports.recoveryPass = recoveryPass;
 function signup(req, res, next) {
 
   passport.authenticate('local-signup', function(err, user, info) {
-    console.log(err,user,info);
     if (err) {
       return res.send('err');
     }
@@ -29,7 +28,7 @@ function signup(req, res, next) {
 function login(req, res, next) {
 
   passport.authenticate('local-login', function(err, user, info) {
-    console.log(err,user,info);
+
     if (err) {
       return res.send('err');
     }
@@ -45,7 +44,6 @@ function verify(req, res) {
         if (error) {
             return res.send('err');
         } else {
-            console.log(rows);
             return res.send(rows);
         }
     });

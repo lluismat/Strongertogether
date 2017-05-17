@@ -14,10 +14,7 @@
       social();
 
     function social() {
-      console.log('Entra en social Controller');
       dataservice.socialLogin().then(function(response) {
-
-          console.log(response.data);
 
           $cookieStore.put('session', {
               user: response.data.username,
@@ -29,8 +26,6 @@
           $rootScope.tipo = response.data.tipo;
           logger.success('Usuario autentificado con exito, Bienvenido a Strongertogether');
         $state.go('home');
-        console.log(response);
-        console.log('username: ' + response.data.username);
       });
     }
   }

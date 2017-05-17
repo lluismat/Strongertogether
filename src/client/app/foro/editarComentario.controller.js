@@ -19,6 +19,7 @@
             vm.username = $cookieStore.get('session').user;
         }
 
+        //OPCIONES DEL EDITOR DE TEXTO SUMMERNOTE
         vm.options = {
             height: 300,
             lang: 'es-ES',
@@ -32,9 +33,8 @@
                 ['fontface', ['fontname']],
                 ['textsize', ['fontsize']],
                 ['fontclr', ['color']],
-                ['alignment', ['ul', 'ol']],
-                ['table', ['table']],
-                ['insert', ['link','picture','video']],
+                ['alignment', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link','picture','video','hr']],
                 ['view', ['fullscreen']],
                 ['help', ['help']]
             ]
@@ -64,7 +64,6 @@
 
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
         function imageUpload(files) {
-            console.log(files[0]);
             Upload.upload({
                 url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
                 data:{
@@ -74,7 +73,6 @@
             }).then(function (resp) { //upload function returns a promise
                 if(resp.data.error_code === 0){
                     //validate success
-                    console.log(resp);
 
                     $scope.editor.summernote('insertImage', resp.data.path + resp.data.filename);
 
@@ -97,7 +95,6 @@
                     'contenido': vm.comentario.contenido,
                     'comentario': $stateParams.id
                 };
-                console.log(data);
 
                 return dataservice.editar_comentario(data).then(function(response) {
                     if(response.data != "error"){

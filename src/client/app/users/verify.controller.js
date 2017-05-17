@@ -24,7 +24,6 @@
             };
 
             dataservice.verify(data).then(function (response) {
-                console.log(response.data);
                 if (response.data.username) {
                     logger.success('Usuario verificado con exito.');
                     $cookieStore.put('session', {

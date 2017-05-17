@@ -75,7 +75,6 @@ exports.sendmail = function(req,res) {
     text: req.body.text,
     html: template
   };
-  console.log(email);
 
   //Input APIKEY Sendgrid
   var options = {

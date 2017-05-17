@@ -18,7 +18,6 @@
     vm.sendContact = sendContact;
 
     function sendContact() {
-      console.log('sendContact');
       var data = {
         name: vm.inputName,
         from: vm.inputEmail,
@@ -32,7 +31,6 @@
 
         if (response) {
             data.type='user';
-            console.log(data);
             dataservice.sendemail(data).then(function (response) {
 
                 if (response) {

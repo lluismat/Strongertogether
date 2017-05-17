@@ -30,7 +30,6 @@
 
           return dataservice.getMensajes(data).then(function(response) {
               vm.mensajes = response.data;
-              console.log(vm.mensajes);
           });
       }
 
@@ -77,7 +76,6 @@
       }
 
       function logout() {
-          console.log("logout");
           $cookieStore.remove('session');
           $rootScope.Session = false;
 

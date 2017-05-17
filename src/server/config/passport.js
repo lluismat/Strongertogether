@@ -31,7 +31,6 @@ module.exports = function() {
 
     modelUsers.countUser(profile.name.givenName, function(rows) {
       if (rows[0].userCount === 0) {
-        console.log('NO EXISTE CREO NEW USER');
 
         var newUser = {
           name: profile._json.first_name,
@@ -49,14 +48,12 @@ module.exports = function() {
           }
         });
       } else {
-        console.log('si existe y devuelvo datos');
         modelUsers.getUser(profile.name.givenName, function(error, rows) {
           if (!rows.length) {
 
             return done(null, false, 'nouser');
 
           } else {
-            console.log(rows[0]);
             return done(null, rows[0]);
           }
         });
@@ -75,7 +72,6 @@ module.exports = function() {
     modelUsers.countUser(profile.username, function(rows) {
       if (rows[0].userCount === 0) {
 
-        console.log('no existe usuario');
         var newUser = {
           name: profile.name,
           surname: profile.surname,
@@ -93,7 +89,6 @@ module.exports = function() {
         }); //fin de consulta
         //return done(null, rows);
       } else {
-        console.log('ya existe');
         modelUsers.getUser(profile.username, function(error, rows) {
           if (!rows.length) {
 

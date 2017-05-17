@@ -27,19 +27,29 @@ module.exports = function() {
     ],
     build: './build/',
     client: client,
-    css: [style + 'icons.css',
+    css: [
+      style + 'icons.css',
       style + 'hospital.css',
       style + 'styles.css',
       style + 'login.css',
       style + 'foro.css',
-      style + 'londinium-theme.css',
+      style + 'profile.css',
+      style + 'message.css',
       style + 'summernote.css',
-      style + 'summernote-bs3.css'
+      style + 'summernote-bs3.css',
+      style + 'londinium-theme.css'
     ],
-    fonts: bower.directory + 'font-awesome/fonts/**/*.*',
+    fonts: [
+        bower.directory + 'font-awesome/fonts/**/*.*',
+        bower.directory + 'summernote/dist/font/**/*.*',
+        client + 'fonts/*.*'
+    ],
     html: client + '**/*.html',
     htmltemplates: clientApp + '**/*.html',
-    images: client + 'images/**/*.*',
+    images: [
+        client + 'images/**/*.*',
+        server + 'uploads/**/*.*'
+        ],
     index: client + 'index.html',
     // app js, with no specs
     js: [
@@ -126,10 +136,6 @@ module.exports = function() {
     specHelpers: [client + 'test-helpers/*.js'],
     specs: [clientApp + '**/*.spec.js'],
     serverIntegrationSpecs: [client + '/tests/server-integration/**/*.spec.js'],
-    /**
-     * E2E Scenario Files
-     */
-    scenarios: client + '/test/e2e/**/*.spec.js',
 
     /**
      * Node settings

@@ -19,6 +19,7 @@
             vm.username = $cookieStore.get('session').user;
         }
 
+        //opciones del editor de texto
         vm.options = {
             height: 300,
             lang: 'es-ES',
@@ -32,9 +33,8 @@
                 ['fontface', ['fontname']],
                 ['textsize', ['fontsize']],
                 ['fontclr', ['color']],
-                ['alignment', ['ul', 'ol']],
-                ['table', ['table']],
-                ['insert', ['link','picture','video']],
+                ['alignment', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link','picture','video','hr']],
                 ['view', ['fullscreen']],
                 ['help', ['help']]
             ]
@@ -42,6 +42,7 @@
 
         tema();
 
+        //Si llegara a entrar algun usuario a la vista de crear tema sin estar logeado se le avisa y redirige al foro
         function tema() {
             if(vm.username == ""){
                 logger.warning('Para crear un tema debes iniciar session en Strongertogether!');
@@ -54,7 +55,6 @@
 
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
         function imageUpload(files) {
-            console.log(files[0]);
             Upload.upload({
                 url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
                 data:{
@@ -64,7 +64,6 @@
             }).then(function (resp) { //upload function returns a promise
                 if(resp.data.error_code === 0){
                     //validate success
-                    console.log(resp);
 
                     $scope.editor.summernote('insertImage', resp.data.path + resp.data.filename);
 
@@ -80,7 +79,7 @@
             });
         }
 
-        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y CREA EL TEMA
+        //RECOGE LOS DATOS DEL EDITOR DE TEXTO Y LOS ENVIA AL SERVIDOR PARA QUE SE GUARDEN LOS DATOS DEL TEMA EN BASE DE DATOS
         function crearTema(){
             if(vm.username !=""){
                 var data = {
@@ -89,7 +88,6 @@
                     'autor': vm.username,
                     'categoria': $stateParams.categoria
                 };
-                console.log(data);
 
                 return dataservice.crearTema(data).then(function(response) {
                     if(response.data != "error"){

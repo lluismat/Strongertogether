@@ -55,7 +55,6 @@ function hospitalsController($q, $uibModal, dataservice, logger, $scope) {
   function getHospitals() {
     return dataservice.getHospitals().then(function (data) {
             vm.hospitals = data;
-            console.log(vm.hospitals);
             getMarkers(vm.hospitals);
             return vm.hospitals;
           });

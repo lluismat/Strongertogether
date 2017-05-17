@@ -26,10 +26,8 @@ modelUsers.signup = function(username, email, pass1, avatar, tipo, token, activo
             newUserMysql.token = token;
 
             var insertQuery = 'INSERT INTO users (username, email, password, avatar, tipo, activo, token) values ("' + username + '","' + email + '","' + pass1 + '","' + avatar + '","' + tipo + '","' + activo + '","' + token + '")';
-          //console.log("insertQuery"+ insertQuery);
              mysql.connection.query(insertQuery,function(err,rows) {
             newUserMysql.id = rows.insertId;
-            console.log(newUserMysql);
             return done(null, newUserMysql, true);
           });
         }
@@ -109,7 +107,6 @@ modelUsers.changePass = function (id, pass, callback) {
                         if (error) {
                             throw error;
                         } else{
-                            console.log(row);
                             callback(null, row);
                         }
                     });
@@ -121,7 +118,6 @@ modelUsers.changePass = function (id, pass, callback) {
 };
 
 modelUsers.login = function(user, pass, done) {
-    console.log('login model');
     if (mysql.connection) {
       mysql.connection.query('select * from users where activo = "' + 1 + '" and username = "' + user + '" or email = "' + user + '"',function(err, rows) {
 
@@ -131,7 +127,6 @@ modelUsers.login = function(user, pass, done) {
 
         // if no user is found, return the message
         if (!rows.length) {
-          console.log('usuario no encontrado');
           return done(null, false, 'Usuario no encontrado');
         }
 
