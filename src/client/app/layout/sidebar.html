@@ -26,21 +26,21 @@
         <li class="dropdown" ng-show="Session">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-bell"></i>
-                <span class="label label-default">1</span>
+                <span class="label label-danger" style="background-color: #D65C4F !important;" ng-show="vm.requests.count >= 1">{{ vm.requests.count }}</span>
             </a>
             <div class="popup dropdown-menu dropdown-menu-right">
                 <div class="popup-header">
                     <a href="#" class="pull-left"><i class="icon-spinner7"></i></a>
-                    <span>Actividad</span>
+                    <span>Peticiones de Amistat</span>
                     <a href="#" class="pull-right"><i class="icon-paragraph-justify"></i></a>
                 </div>
-                <ul class="activity">
-                    <li>
-                        <i class="icon-thumbs-up3"></i>
-                        <div>
-                            <a href="#">Lluis</a> se ha votado a si mismo en el siguiente tema: <a href="#">proba</a>
-                            <span>14 minutes ago</span>
-                        </div>
+                <ul class="popup-messages">
+                    <li  ng-repeat="request in vm.requests.requests">
+                        <a href="#" ng-click="vm.showRequest(request.id)">
+                            <img src="src/server/uploads/avatars/{{ request.avatar }}" alt="" class="user-face">
+                            <strong>{{ request.autor }}<i class="icon-attachment2"></i></strong>
+                            <span>{{ request.asunto }}</span>
+                        </a>
                     </li>
                 </ul>
             </div>

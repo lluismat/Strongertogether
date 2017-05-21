@@ -90,6 +90,5 @@
                 logger.error('Para enviar mensajes debes estar registrado');
             }
         }
-
     }
 })();

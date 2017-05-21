@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2017 a las 10:13:01
+-- Tiempo de generación: 21-05-2017 a las 13:04:14
 -- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 7.0.16
+-- Versión de PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -122,6 +120,7 @@ CREATE TABLE `mensajes` (
   `mensaje` longtext NOT NULL,
   `autor` varchar(255) NOT NULL,
   `destinatario` varchar(255) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
   `leido` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -129,13 +128,13 @@ CREATE TABLE `mensajes` (
 -- Volcado de datos para la tabla `mensajes`
 --
 
-INSERT INTO `mensajes` (`id`, `asunto`, `mensaje`, `autor`, `destinatario`, `leido`) VALUES
-(1, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'user35', 'lluismat', 1),
-(2, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'user35', 'lluismat', 1),
-(3, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'admin', 'lluismat', 0),
-(6, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'lluismat', 'admin', 0),
-(7, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'admin', 'lluismat', 0),
-(8, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'lluismat', 'user35', 0);
+INSERT INTO `mensajes` (`id`, `asunto`, `mensaje`, `autor`, `destinatario`, `tipo`, `leido`) VALUES
+(1, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'user35', 'lluismat', 'mensaje', 1),
+(2, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'user35', 'lluismat', 'mensaje', 1),
+(3, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'admin', 'lluismat', 'mensaje', 0),
+(6, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'lluismat', 'admin', 'mensaje', 0),
+(7, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'admin', 'lluismat', 'mensaje', 0),
+(8, 'Sapien veroeros', 'PHA+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMTI3LCAxMzYsIDE0Myk7IGZvbnQtc2l6ZTogMTcuMzMzM3B4OyI+QWVuZWFuIG9ybmFyZSB2ZWxpdCBsYWN1cywgYWMgdmFyaXVzIGVuaW0gbG9yZW0gdWxsYW1jb3JwZXIgZG9sb3JlLiBQcm9pbiBhbGlxdWFtIGZhY2lsaXNpcyBhbnRlIGludGVyZHVtLiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjcsIDEzNiwgMTQzKTsgZm9udC1zaXplOiAxNy4zMzMzcHg7Ij5TZWQgbnVsbGEgYW1ldCBsb3JlbSBmZXVnaWF0IHRlbXB1cyBhbGlxdWFtLjwvc3Bhbj48L3A+', 'lluismat', 'user35', 'mensaje', 0);
 
 -- --------------------------------------------------------
 
@@ -317,7 +316,6 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `tema_ibfk_1` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

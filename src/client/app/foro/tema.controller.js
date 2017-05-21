@@ -19,8 +19,8 @@
         vm.contentTema = "";
         vm.comentario = comentario;
         vm.imageUpload = imageUpload;
-        vm.addFriend = addFriend;
         vm.editar_tema = editar_tema;
+        vm.sendRequest = sendRequest;
 
         if($cookieStore.get('session')){
             vm.username = $cookieStore.get('session').user;
@@ -153,22 +153,25 @@
             }
         }
 
-        function addFriend(user){
+        //funciona para enviar una petición de amistat a un usuario
+        function sendRequest(destinatario){
 
-            if(vm.username != user && user !=""){
-                vm.friends[0] = user;
+            if(vm.username != destinatario && vm.username !=""){
                 var data = {
-                    'friends': vm.friends,
+                    'destinatario': destinatario,
                     'username': vm.username
                 };
 
-                return dataservice.addFriend(data).then(function(response) {
-                    if(response.data != ("error" &&  "errorexist")) {
-                        logger.success('El usuario '+user+' es ahora amigo tuyo');
-                    }else if(response.data == "errorexist"){
-                        logger.error('El usuario '+user+' ya es amigo tuyo');
+                return dataservice.sendRequest(data).then(function(response) {
+                    console.log(response.data);
+                    if(response.data != ("error" &&  "errorexist" && "alreadysend")) {
+                        logger.success('Se ha enviado correctamente una petición de amistat a '+destinatario+'.');
+                    }else if(response.data == "errorexist") {
+                        logger.error('El usuario ' + destinatario + ' ya es amigo tuyo');
+                    }else if(response.data == "alreadysend"){
+                        logger.error('Ya has enviado una petición de amistat anteriormente a '+destinatario+'.');
                     }else{
-                        logger.error('Ha habido un error al añadir a tu lista de amigos a'+user);
+                        logger.error('Ha habido un error al enviar una petición de amistat a '+destinatario);
                     }
                 });
             }

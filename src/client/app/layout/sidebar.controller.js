@@ -10,6 +10,7 @@
   function SidebarController($state, routerHelper, $cookieStore, dataservice, $uibModal, $rootScope, $q, logger, $sce) {
     var vm = this;
       vm.mensajes = [];
+      vm.requests = [];
 
     var states = routerHelper.getStates();
       vm.openModal = openModal;
@@ -19,10 +20,22 @@
       vm.openRecoveryPass = openRecoveryPass;
       vm.showMessage = showMessage;
       vm.read_message = read_message;
+      vm.getRequests = getRequests;
+      vm.showRequest = showRequest;
 
 
       showLogin();
-      
+
+      function getRequests(user) {
+          var data = {
+              'user': user
+          };
+
+          return dataservice.getRequests(data).then(function(response) {
+              vm.requests = response.data;
+          });
+      }
+
       function showMessages(user) {
           var data = {
               'user': user
@@ -46,6 +59,19 @@
               read_message(id);
           });
       }
+      //funcion para ver un mensaje
+      function showRequest(id){
+          var promises = [getMessage(id)];
+          return $q.all(promises).then(function() {
+              var modalInstance = $uibModal.open({
+                  animation: 'true',
+                  templateUrl: 'app/profile/showPeticionAmistat.html',
+                  controller: 'modalController',
+                  size: 'lg'
+              });
+              read_message(id);
+          });
+      }
 
       function getMessage(id) {
 
@@ -58,6 +84,7 @@
                   $rootScope.asunto = response.data.asunto;
                   $rootScope.mensaje = $sce.trustAsHtml(response.data.mensaje);
                   $rootScope.autor = response.data.autor;
+                  $rootScope.id = response.data.id;
               }else{
                   logger.error('Ups, Ha habido un error y no se ha posido mostrar el mensaje en este momento');
               }
@@ -94,6 +121,7 @@
               $rootScope.avatar = user.avatar;
               $rootScope.tipo = user.tipo;
               showMessages(user.user);
+              getRequests(user.user);
           } else {
               $rootScope.Session = false;
           }

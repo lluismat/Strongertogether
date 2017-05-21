@@ -27,68 +27,6 @@ profileModel.getProfile = function(user,callback){
     }
 };
 
-profileModel.getMensajes = function(user,callback){
-    if (mysql.connection) {
-        var sql = 'SELECT * FROM mensajes WHERE destinatario = "' + user + '" ORDER BY id DESC';
-        mysql.connection.query(sql, function (error, row) {
-            if (error) {
-                throw error;
-            }
-            var sql2 = 'SELECT m.*,u.avatar FROM mensajes m,users u WHERE m.destinatario = "' + user + '" AND u.username = m.autor AND leido = "' + 0 + '" ORDER BY m.id DESC';
-            mysql.connection.query(sql2, function (error, row2) {
-                if (error) {
-                    throw error;
-                }
-                var sql3 = 'SELECT * FROM mensajes WHERE destinatario = "' + user + '" AND leido = "' + 1 + '" ORDER BY id DESC';
-                mysql.connection.query(sql3, function (error, row3) {
-                    if (error) {
-                        throw error;
-                    } else {
-
-                        for (var i = 0; i < row.length; i++) {
-                            row[i].mensaje = new Buffer(row[i].mensaje, 'base64').toString("utf8");
-                        }
-
-                        for (var i = 0; i < row2.length; i++) {
-                            row2[i].mensaje = new Buffer(row2[i].mensaje, 'base64').toString("utf8");
-                        }
-                        var noleidos = row2.length;
-                        var row4 = {"leidos": row3, "noleidos": row2, "mensajes": noleidos, "todos": row};
-                        callback(null, row4);
-                    }
-                });
-            });
-        });
-    }
-};
-
-profileModel.showMensaje = function(message,callback){
-    if (mysql.connection) {
-        var sql = 'SELECT * FROM mensajes WHERE destinatario = "'+message.destinatario+'" AND id = "'+message.id+'"';
-        mysql.connection.query(sql, function(error, row) {
-            if(error){
-                throw error;
-            }else{
-                row[0].mensaje = new Buffer(row[0].mensaje, 'base64').toString("utf8");
-                callback(null, row[0]);
-            }
-        });
-    }
-};
-
-profileModel.readMessage = function(message,callback){
-    if (mysql.connection) {
-        var sql = 'UPDATE mensajes set leido = "' + 1 + '" where destinatario ="' + message.destinatario + '" AND id = "'+message.id+'"';
-        mysql.connection.query(sql, function(error, row) {
-            if(error){
-                throw error;
-            }else{
-                callback(null, row);
-            }
-        });
-    }
-};
-
 profileModel.saveProfile = function(user,callback){
     if (mysql.connection) {
         var sql = 'UPDATE users set name = "' + user.name + '", surname = "' + user.surname + '", city = "' + user.city + '"' +

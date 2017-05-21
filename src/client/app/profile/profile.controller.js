@@ -10,12 +10,11 @@
   function ProfileController($q, $state, logger, $rootScope, dataservice, $cookieStore, Upload, $uibModal, $sce) {
       var vm = this;
       vm.title = 'Profile';
-      vm.saveProfile = saveProfile;
-      vm.saveAccount = saveAccount;
       vm.email = "";
       vm.newpass = "";
       vm.actualPass = "";
       vm.avatar = "";
+      vm.friends = [];
       vm.temas = [];
       vm.currentPage = 1;
       vm.pageSize = 10;
@@ -27,16 +26,26 @@
       vm.temasPage =[];
       vm.currentCat = "";
       vm.mensajes = [];
+      //datos del usuario
+      vm.saveProfile = saveProfile;
+      vm.saveAccount = saveAccount;
+      //temas creaados por el usuario
       vm.showTemas = showTemas;
+      //mensajes recibidos del usuario
       vm.showMessages = showMessages;
-      vm.paginationTemas = paginationTemas;
-      vm.paginationMensajes = paginationMensajes;
-      vm.countPagesTemas = countPagesTemas;
-      vm.countPagesMensajes = countPagesMensajes;
       vm.getMensajes = getMensajes;
       vm.showMessage = showMessage;
       vm.getMessage = getMessage;
       vm.read_message = read_message;
+      //pagination
+      vm.paginationTemas = paginationTemas;
+      vm.paginationMensajes = paginationMensajes;
+      vm.countPagesTemas = countPagesTemas;
+      vm.countPagesMensajes = countPagesMensajes;
+      //añadir amigo
+      vm.refuse = refuse;
+      vm.addFriend = addFriend;
+
       vm.username = $cookieStore.get('session').user;
 
       activate();
@@ -113,6 +122,7 @@
                   $rootScope.asunto = response.data.asunto;
                   $rootScope.mensaje = $sce.trustAsHtml(response.data.mensaje);
                   $rootScope.autor = response.data.autor;
+                  $rootScope.id = response.data.id;
               }else{
                   logger.error('Ups, Ha habido un error y no se ha posido mostrar el mensaje en este momento');
               }
@@ -129,6 +139,40 @@
                   $state.reload();
               }
           });
+      }
+
+      //funciona para enviar una petición de amistat a un usuario
+      function addFriend(user){
+          console.log(user);
+          if(vm.username != user && user !=""){
+              var data = {
+                  'id': $rootScope.id,
+                  'friends': user,
+                  'username': vm.username
+              };
+
+              return dataservice.addFriend(data).then(function(response) {
+                  if(response.data != ("error" &&  "errorexist")) {
+                      logger.success('Se ha añadido a '+user+' a tu lista de amigos.');
+                  }else if(response.data == "errorexist"){
+                      logger.error('El usuario '+user+' ya es amigo tuyo');
+                  }else{
+                      logger.error('Ha habido un error al enviar una petición de amistat a'+user);
+                  }
+              });
+          }
+      }
+
+      function refuse(id){
+          console.log(id);
+          if(vm.username != $rootScope.autor && id !=""){
+              var data = {
+                  'id': id
+              };
+
+              return dataservice.refuseFriend(data).then(function(response) {
+              });
+          }
       }
 
       //funcion para guardar la informacion del usuario

@@ -39,8 +39,11 @@
       }
             ///signup local
           function submitSignUp(){
+
+              var user = vm.inputUsername.toLowerCase();
+
             var data = {
-                'username' : vm.inputUsername,
+                'username' : user,
                 'email'    : vm.inputEmail,
                 'pass'     : vm.inputPass,
                 'avatar'   : "default_user.png",
@@ -78,6 +81,7 @@
                         $rootScope.avatar = response.data.avatar;
                         $rootScope.tipo = response.data.tipo;
                         logger.success('Usuario autentificado con exito, Bienvenido de nuevo a Strongertogether');
+                        location.reload();
                         $state.go('home');
                         $rootScope.closeModal();
                     } else if (response.data == 'loginerror') {

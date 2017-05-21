@@ -1,0 +1,21 @@
+<div class="modal-content" ng-controller="ProfileController as vm">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="closeModal()">&times;</span></button>
+         <h4 class="modal-title">Petición de Amistat de {{ autor }}</h4>
+    </div>
+     <div class="modal-body">
+         <div class="content_box">
+             <div class="col-md-12">
+                 <div class="asunto_box">{{ asunto }}</div>
+             </div>
+
+             <div class="col-md-12">
+                 <div class="mensaje_box" ng-bind-html="mensaje"></div>
+             </div>
+         </div>
+     </div>
+     <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="vm.refuse(id); closeModal();">Rechazar</button>
+         <button ng-click="vm.addFriend(autor); closeModal()" type="button" class="btn btn-success">Aceptar</button>
+     </div>
+ </div>

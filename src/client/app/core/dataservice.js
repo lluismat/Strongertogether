@@ -42,6 +42,9 @@
         editar_comentario:editar_comentario,
         //AÑADIR AMIGOS
         addFriend:addFriend,
+        refuseFriend:refuseFriend,
+        sendRequest:sendRequest,
+        getRequests:getRequests,
         //ENVIAR MENSAJES
         getMensajes:getMensajes,
         sendMessage:sendMessage,
@@ -390,6 +393,48 @@
 
       function addFriend(data) {
           return $http.post('/api/addfriend', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function refuseFriend(data) {
+          return $http.post('/api/refuse_friend', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function sendRequest(data) {
+          return $http.post('/api/sendrequest', data)
+              .then(success)
+              .catch(fail);
+
+          function success(response) {
+              return response;
+          }
+
+          function fail() {
+              return false;
+          }
+      }
+
+      function getRequests(data) {
+          return $http.post('/api/get_requests', data)
               .then(success)
               .catch(fail);
 
