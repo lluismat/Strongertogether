@@ -10,9 +10,11 @@
     "init": "npm install",
     "install": "bower install",
     "start": "node src/server/app.js",
+    "postinstall": "bower install",
     "test": "gulp test"
   },
   "dependencies": {
+    "bower": "~1.8.0",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.8.2",
     "cookie-parser": "^1.4.3",
