@@ -1,3 +1,10 @@
 .leido{
-background-color: #EDEDED;
+background-color: #F6F6F6;
+}
+.noleido{
+    background-color: #dff0d8;
+}
+
+.avatar_friend{
+    width: 50% !important;
 }

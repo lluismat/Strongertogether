@@ -66,6 +66,8 @@
 
               return dataservice.profile(data).then(function(response) {
                   $rootScope.user = response.data.user;
+                  $rootScope.amigos = response.data.amigos;
+                  console.log(response.data);
                   vm.temas = response.data.temas;
                   $rootScope.user.avatar = "";
                   if($rootScope.user.name == "null"){
@@ -179,7 +181,8 @@
       function saveProfile(){
           if(vm.avatar  && vm.avatar != "default_user.png"){
               Upload.upload({
-                  url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
+                  url: '/upload',//webAPI exposed to upload the file
+                  method: 'post',
                   data:{
                       type:"avatar",
                       user:$rootScope.user.username,

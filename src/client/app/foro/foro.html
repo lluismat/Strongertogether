@@ -8,7 +8,7 @@
                 </ul>
             </div>
             <div class="text-left">
-                <a href="/nuevo_tema?categoria={{ vm.currentCat }}" ng-disabled="!vm.username" class="btn btn-primary crear_tema"><i class="icon-quill2"></i> Crear Tema</a>
+                <button ng-click="vm.crearTemas(vm.currentCat)" ng-disabled="!vm.username" class="btn btn-primary crear_tema"><i class="icon-quill2"></i> Crear Tema</button>
                 <small ng-show="vm.username == ''">Debes iniciar sesión para poder comentar o crear temas.</small>
             </div>
         </div>

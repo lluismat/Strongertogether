@@ -65,7 +65,8 @@
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
         function imageUpload(files) {
             Upload.upload({
-                url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
+                url: '/upload',//webAPI exposed to upload the file
+                method: 'post',
                 data:{
                     type:"image",
                     file:files[0]

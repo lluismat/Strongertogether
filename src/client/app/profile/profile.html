@@ -23,8 +23,8 @@
 
         <ul class="nav nav-list">
           <li class="nav-header">Actividad <i class="icon-accessibility"></i></li>
-          <li><a class="active" href="#activity" data-toggle="tab">Actividad</a></li>
-          <li><a href="#">Amigos</a></li>
+          <li><a href="#activity" data-toggle="tab">Actividad</a></li>
+          <li><a href="#amigos" data-toggle="tab">Amigos <span class="label label-info">{{ amigos.length }}</span></a></li></li>
           <li><a href="#temas" data-toggle="tab">Mis Temas <span class="label label-success">{{ vm.temas.length }}</span></a></li>
           <li><a href="#mensajes" data-toggle="tab">Mensajes <span class="label label-danger">{{ vm.mensajes.mensajes }}</span></a></li>
         </ul>
@@ -32,7 +32,7 @@
         <ul class="nav nav-list">
           <li class="nav-header">Configuración y Privacidad <i class="icon-cogs"></i></li>
           <li><a href="#infouser" data-toggle="tab">Información Personal</a></li>
-          <li><a href="#">Privacidad</a></li>
+          <li><a href="#privacity">Privacidad</a></li>
           <li><a href="#cuenta" data-toggle="tab">Cuenta</a></li>
         </ul>
       </div>
@@ -43,8 +43,8 @@
       <div class="tab-content">
         <div class="tab-pane fade in" id="activity">
 
-          </div>
-        <div class="tab-pane fade in" id="infouser">
+        </div>
+        <div class="tab-pane fade in active" id="infouser">
           <!-- Profile information -->
           <form class="block" role="form" id="perfil_form" name="perfil_form" style="margin: 0 10px 10px 10px;">
             <h6 class="heading-hr"><i class="icon-user"></i> Información Personal: </h6>
@@ -174,7 +174,7 @@
                     <td><a href="/tema?id={{ tema.id }}"><h2>{{ tema.titulo }}</h2></a></td>
                     <td><h6>{{ tema.nombre }}</h6></td>
                     <td><h6><label class="text-center">{{ tema.comentarios }}</label></h6></td>
-                    <td><h6><label>{{ tema.votos }}</label></h6></td>
+                    <td><h6><label class="text-center">{{ tema.votos }}</label></h6></td>
                   </tr>
                   </tbody>
                 </table>
@@ -220,6 +220,29 @@
               <button type="button" class="btn btn-primary" ng-disabled="vm.currentPage >= vm.pagesMessage" ng-click="vm.paginationMensajes('last'); vm.showMessages()"><i class="icon-arrow-right"></i></button>
             </div>
           </div>
+        </div>
+        <div class="tab-pane fade in" id="amigos">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h6 class="panel-title"><i class="icon-users"></i>Amigos </h6></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" ng-repeat="amigo in amigos">
+                    <div class="block" >
+                        <div class="thumbnail thumbnail-boxed avatar_friend">
+                            <a href="#" class="thumb-zoom lightbox" title="{{ amigo.username }}">
+                                <img src="src/server/uploads/avatars/{{ amigo.avatar }}" alt="">
+                            </a>
+                            <div class="caption text-center">
+                                <h6>{{ amigo.username }}</h6>
+                                <div class="icons-group">
+                                    <a href="/enviar_mensaje?user={{amigo.username}}" title="Enviar Mensaje" class="tip"><i class="icon-bubbles"></i></a>
+                                    <a href="#" title="Eliminar Amigo" class="tip"><i class="icon-user-cancel"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>

@@ -18,8 +18,20 @@ profileModel.getProfile = function(user,callback){
                         for(var i = 0; i < row2.length;i++){
                             row2[i].contenido = new Buffer(row2[i].contenido, 'base64').toString("utf8");
                         }
-                        var row3 = {"user": row[0],"temas":row2};
-                        callback(null, row3);
+                        var str2 = row[0].friends.split(",");
+                        var str3 = str2.slice(0,-1);
+                        for(var j = 0; j < str3.length;j++){
+                            str3[j] = '"'+str3[j]+'"';
+                        }
+                        var sql = 'SELECT * FROM users WHERE username IN ('+str3+')';
+                        mysql.connection.query(sql, function(error, row3) {
+                            if(error){
+                                throw error;
+                            }else{
+                                var row4 = {"user": row[0],"temas":row2, "amigos":row3};
+                                callback(null, row4);
+                            }
+                        });
                     }
                 });
             }

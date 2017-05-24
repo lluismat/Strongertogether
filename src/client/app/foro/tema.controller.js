@@ -21,6 +21,7 @@
         vm.imageUpload = imageUpload;
         vm.editar_tema = editar_tema;
         vm.sendRequest = sendRequest;
+        vm.sendMessage = sendMessage;
 
         if($cookieStore.get('session')){
             vm.username = $cookieStore.get('session').user;
@@ -75,10 +76,23 @@
             });
         }
 
+        //redirige a la pagina para crear el mensaje
+        function sendMessage(user,tema){
+            if(vm.username !="" && vm.username != user){
+                $state.go('mensaje',{user:user,tema:tema});
+            }else{
+                logger.error('No puedes enviarte un mensaje a ti mismo');
+                $timeout(function() {
+                    $state.go('foro');
+                }, 1000);
+            }
+        }
+
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
         function imageUpload(files) {
             Upload.upload({
-                url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
+                url: '/upload',//webAPI exposed to upload the file
+                method: 'post',
                 data:{
                     type:"image",
                     file:files[0]
@@ -164,7 +178,7 @@
 
                 return dataservice.sendRequest(data).then(function(response) {
                     console.log(response.data);
-                    if(response.data != ("error" &&  "errorexist" && "alreadysend")) {
+                    if(response.data != "error" && response.data != "errorexist" && response.data != "alreadysend") {
                         logger.success('Se ha enviado correctamente una petición de amistat a '+destinatario+'.');
                     }else if(response.data == "errorexist") {
                         logger.error('El usuario ' + destinatario + ' ya es amigo tuyo');

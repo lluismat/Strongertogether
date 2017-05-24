@@ -25,6 +25,7 @@
       vm.pagination = pagination;
       vm.showTemas = showTemas;
       vm.getTemas = getTemas;
+      vm.crearTemas = crearTemas;
 
       //comprobamos si esta el usuario logeado
       if($cookieStore.get('session')){
@@ -60,6 +61,18 @@
               vm.currentCat = response.data[0].id;
               getTemas(vm.currentCat);
           });
+      }
+
+      //redirige a la pagina para crear el mensaje
+      function crearTemas(categoria){
+          if(vm.username !=""){
+              $state.go('NuevoTema',{categoria:categoria});
+          }else{
+              logger.error('No puedes crear un tema si no has iniciado sesión');
+              $timeout(function() {
+                  $state.go('foro');
+              }, 1000);
+          }
       }
 
       //PAGINATION

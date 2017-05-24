@@ -65,7 +65,7 @@ function changePass(req, res) {
 
 function emailVerification(user){
 
-    var url = "http://localhost:3000/verify?id="+user.token;
+    var url = "https://strongertogether.herokuapp.com/verify?id="+user.token;
     var email = {
         from: 'Strongertogetherdaw@gmail.com',
         to: user.email,
@@ -90,7 +90,7 @@ function recoveryPass(req,res){
         if (error) {
             return res.send('err');
         } else {
-            url = "http://localhost:3000/recovery?id="+rows[0].token;
+            url = "https://strongertogether.herokuapp.com/recovery?id="+rows[0].token;
             var email = {
                 from: 'Strongertogetherdaw@gmail.com',
                 to: req.body.email,

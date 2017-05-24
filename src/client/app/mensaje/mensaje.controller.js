@@ -44,7 +44,8 @@
         //SUBE LA IMAGEN AL PROYECTO Y LA PINTA EN EL EDITOR DE TEXTO
         function imageUpload(files) {
             Upload.upload({
-                url: 'http://localhost:3000/upload', //webAPI exposed to upload the file
+                url: '/upload',//webAPI exposed to upload the file
+                method: 'post',
                 data:{
                     type:"image",
                     file:files[0]
@@ -80,7 +81,11 @@
                 return dataservice.sendMessage(data).then(function(response) {
                     if(response.data != "error"){
                         logger.success('Mensaje enviado con exito');
-                        $state.go('foro');
+                        if($stateParams.tema){
+                            $state.go('tema',{id:vm.tema});
+                        }else{
+                            $state.go('perfil');
+                        }
                     }else{
                         logger.error('Ha habido un error al enviar el mensaje');
                     }
