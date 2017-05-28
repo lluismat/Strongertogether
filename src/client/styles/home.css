@@ -1,0 +1,20 @@
+.slider{
+    width: 100%;
+}
+
+.noticias{
+    margin-top: 20px;
+}
+
+.img_noticia{
+    height: 400px !important;
+}
+
+.img_noticia_destacada{
+    width: 80% !important;
+}
+
+.titulo_noticias{
+    margin-left: 20px;
+    color: #50626D;
+}

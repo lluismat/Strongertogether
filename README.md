@@ -1,5 +1,7 @@
 # strongertogether
 
+Demo Strongertogether: http://strongertogether.herokuapp.com/
+
 **Generated from HotTowel Angular**
 
 >*Opinionated Angular style guide for teams by [@john_papa](//twitter.com/john_papa)*

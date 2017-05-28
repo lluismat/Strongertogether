@@ -37,7 +37,8 @@ module.exports = function() {
       style + 'message.css',
       style + 'summernote.css',
       style + 'summernote-bs3.css',
-      style + 'londinium-theme.css'
+      style + 'londinium-theme.css',
+      style + 'home.css'
     ],
     fonts: [
         bower.directory + 'font-awesome/fonts/**/*.*',

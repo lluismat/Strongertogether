@@ -17,7 +17,7 @@ var multer = require('multer');
 var environment = process.env.NODE_ENV;
 app.use(cookieParser());
 
-app.use(favicon(__dirname + '/favicon.ico'));
+app.use(favicon(__dirname + '/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
