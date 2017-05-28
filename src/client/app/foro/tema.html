@@ -23,7 +23,7 @@
                         <div class="col-md-9 contenido_comentario" ng-bind-html="vm.contentTema"></div>
                     </div>
                     <div class="form-actions text-right" >
-                        <a href="/editar_tema?id={{ vm.tema.id }}" ng-show="vm.username == vm.tema.autor || (vm.username != '')" class="btn btn-primary editar_tema">Editar</a>
+                        <a href="/editar_tema?id={{ vm.tema.id }}" ng-show="vm.username == vm.tema.autor" class="btn btn-primary editar_tema">Editar</a>
                     </div>
                 </div><br><br>
                 <h2>COMENTARIOS</h2>
@@ -44,7 +44,7 @@
                         <div class="col-md-9 contenido_comentario" ng-bind-html="comentario.contenido"></div>
                     </div>
                     <div class="form-actions text-right" >
-                        <a href="/editar_comentario?id={{ comentario.comentario}}&tema={{vm.tema.id}}" ng-show="vm.username == comentario.autor || (vm.username != '')" class="btn btn-primary editar_tema">Editar</a>
+                        <a href="/editar_comentario?id={{ comentario.comentario}}&tema={{vm.tema.id}}" ng-show="vm.username == comentario.autor" class="btn btn-primary editar_tema">Editar</a>
                     </div>
                 </div><br>
             </div>
